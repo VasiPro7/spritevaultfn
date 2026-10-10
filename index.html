@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpriteVaultFN — Fortnite Sprite Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+
+:root {
+  --bg: #06070d;
+  --panel: rgba(16, 18, 28, 0.72);
+  --panel-solid: #10121c;
+  --elev: rgba(26, 30, 46, 0.9);
+  --border: rgba(167, 139, 250, 0.2);
+  --border-strong: rgba(167, 139, 250, 0.45);
+  --text: #f0f2f8;
+  --muted: #8b92a8;
+  --accent: #a78bfa;
+  --accent2: #c4b5fd;
+  --cyan: #22d3ee;
+  --pink: #f472b6;
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --radius: 16px;
+  --font: Inter, system-ui, sans-serif;
+  --glow: 0 0 40px rgba(167, 139, 250, 0.25);
+  --glow-cyan: 0 0 30px rgba(34, 211, 238, 0.2);
+}
+[data-theme="amoled"] {
+  --bg: #000;
+  --panel: rgba(10, 10, 14, 0.85);
+  --panel-solid: #0a0a0e;
+  --elev: rgba(18, 18, 24, 0.95);
+}
+[data-theme="light"] {
+  --bg: #eef0f7;
+  --panel: rgba(255, 255, 255, 0.85);
+  --panel-solid: #fff;
+  --elev: rgba(240, 242, 248, 0.95);
+  --text: #1a1d27;
+  --muted: #5c6378;
+  --border: rgba(99, 70, 200, 0.18);
+  --glow: 0 0 30px rgba(167, 139, 250, 0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(167, 139, 250, 0.18), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(34, 211, 238, 0.1), transparent 50%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(244, 114, 182, 0.08), transparent 50%);
+}
+body > * { position: relative; z-index: 1; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(6, 7, 13, 0.75);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+.nav-inner {
+  max-width: 1400px; margin: 0 auto; padding: 0.8rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.logo {
+  font-weight: 800; letter-spacing: 0.08em; text-decoration: none; color: var(--text);
+  white-space: nowrap;
+  background: linear-gradient(135deg, var(--accent2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(167,139,250,0.4));
+  transition: filter 0.3s;
+}
+.logo:hover { filter: drop-shadow(0 0 20px rgba(34,211,238,0.5)); }
+.nav-links { display: flex; gap: 0.3rem; flex: 1; }
+.nav-btn {
+  background: transparent; border: 1px solid transparent;
+  color: var(--muted); padding: 0.5rem 0.95rem; border-radius: 999px;
+  font-weight: 600; font-size: 0.88rem; transition: all 0.25s ease;
+}
+.nav-btn:hover {
+  color: var(--text); background: rgba(167,139,250,0.1);
+  border-color: var(--border);
+}
+.nav-btn.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(167,139,250,0.35), rgba(34,211,238,0.2));
+  border-color: var(--border-strong);
+  box-shadow: 0 0 20px rgba(167,139,250,0.25);
+}
+.nav-right { display: flex; align-items: center; gap: 0.65rem; }
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 12px;
+  border: 1px solid var(--border); background: rgba(26,30,46,0.6);
+  color: var(--muted); font-size: 1.1rem; transition: all 0.25s;
+}
+.icon-btn:hover {
+  color: var(--accent2); border-color: var(--accent);
+  box-shadow: var(--glow); transform: translateY(-1px);
+}
+.ring { position: relative; width: 42px; height: 42px; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); filter: drop-shadow(0 0 6px rgba(167,139,250,0.5)); }
+.ring-bg { fill: none; stroke: rgba(167,139,250,0.15); stroke-width: 3.5; }
+.ring-fill { fill: none; stroke: url(#none); stroke: #a78bfa; stroke-width: 3.5; stroke-linecap: round; transition: stroke-dasharray 0.6s ease; }
+#ringPct {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 0.58rem; font-weight: 800; color: var(--accent2);
+}
+#btnMenu { display: none; }
+.mobile-menu {
+  display: none; flex-direction: column; gap: 0.35rem; padding: 0.85rem;
+  background: rgba(10,12,20,0.95); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu.open { display: flex; }
+
+/* HERO */
+.hero {
+  text-align: center; padding: 3.5rem 1.25rem 2.25rem;
+  position: relative;
+  background:
+    linear-gradient(rgba(167,139,250,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: -20% -10% auto;
+  height: 70%;
+  background: radial-gradient(ellipse at center, rgba(167,139,250,0.22), transparent 65%);
+  animation: pulseGlow 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 900; letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #fff 10%, var(--accent2) 40%, var(--cyan) 70%, var(--pink) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: shimmer 5s linear infinite;
+  position: relative;
+  filter: drop-shadow(0 0 30px rgba(167,139,250,0.35));
+}
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+.tagline {
+  font-size: 1.25rem; font-weight: 700; margin-top: 0.4rem;
+  color: var(--text); letter-spacing: 0.02em;
+}
+.sub { color: var(--muted); margin: 0.4rem 0 1.75rem; font-size: 0.98rem; }
+.hero-search {
+  display: flex; gap: 0.55rem; max-width: 500px; margin: 0 auto 1.85rem;
+  position: relative;
+}
+.hero-search input {
+  flex: 1; background: rgba(16,18,28,0.8); border: 1px solid var(--border);
+  border-radius: 14px; padding: 0.95rem 1.15rem; outline: none;
+  backdrop-filter: blur(12px); transition: all 0.25s;
+}
+.hero-search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(167,139,250,0.15), var(--glow);
+}
+.hero-search button, .pri-btn {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed 50%, #6366f1);
+  background-size: 160% 160%;
+  border: none; border-radius: 14px; padding: 0 1.4rem; color: #fff;
+  font-weight: 700; letter-spacing: 0.02em;
+  box-shadow: 0 4px 24px rgba(124,58,237,0.4);
+  transition: all 0.3s ease;
+}
+.hero-search button:hover, .pri-btn:hover {
+  background-position: 100% 50%;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(124,58,237,0.55);
+}
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem;
+  max-width: 580px; margin: 0 auto;
+}
+.stat {
+  background: rgba(16,18,28,0.65);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem 0.55rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+.stat:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--glow);
+}
+.stat.accent {
+  border-color: rgba(167,139,250,0.5);
+  background: linear-gradient(145deg, rgba(167,139,250,0.18), rgba(34,211,238,0.08));
+  box-shadow: var(--glow);
+}
+.stat b {
+  display: block; font-size: 1.4rem;
+  background: linear-gradient(135deg, var(--accent2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.stat span {
+  font-size: 0.68rem; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.08em; font-weight: 600;
+}
+
+.dash {
+  max-width: 1400px; margin: 0 auto; padding: 0 1.25rem 1.35rem;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem;
+}
+.dash > div {
+  background: rgba(16,18,28,0.65);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  backdrop-filter: blur(10px);
+  display: flex; flex-direction: column; gap: 0.2rem;
+  transition: all 0.25s;
+}
+.dash > div:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--glow);
+}
+.dash span {
+  font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; font-weight: 700;
+}
+.dash b {
+  font-size: 1.25rem;
+  background: linear-gradient(135deg, var(--accent2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* CATALOG */
+.catalog {
+  max-width: 1400px; margin: 0 auto; padding: 0 1.25rem 3.5rem;
+  display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem;
+}
+.filters {
+  background: rgba(16,18,28,0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  height: fit-content;
+  position: sticky; top: 76px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+.filters-head {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+}
+.filters-head h2 {
+  font-size: 1rem;
+  background: linear-gradient(135deg, var(--accent2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.filters label {
+  display: block; font-size: 0.68rem; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.07em; font-weight: 700; margin: 0.9rem 0 0.4rem;
+}
+.filters input, .filters select, .panel input, .panel select {
+  width: 100%; background: var(--elev); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.6rem 0.8rem; outline: none; transition: all 0.2s;
+}
+.filters input:focus, .filters select:focus {
+  border-color: var(--accent); box-shadow: 0 0 0 3px rgba(167,139,250,0.12);
+}
+.link-btn {
+  background: none; border: none; color: var(--accent2); font-size: 0.8rem; font-weight: 600;
+}
+.link-btn:hover { text-decoration: underline; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip {
+  background: rgba(26,30,46,0.8); border: 1px solid var(--border); border-radius: 999px;
+  padding: 0.32rem 0.75rem; font-size: 0.74rem; color: var(--muted); font-weight: 600;
+  transition: all 0.2s;
+}
+.chip:hover {
+  border-color: var(--accent); color: var(--text);
+  box-shadow: 0 0 12px rgba(167,139,250,0.2);
+}
+.chip.active {
+  background: linear-gradient(135deg, rgba(167,139,250,0.35), rgba(34,211,238,0.2));
+  border-color: var(--accent); color: #fff;
+  box-shadow: 0 0 16px rgba(167,139,250,0.3);
+}
+
+.toolbar {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+}
+#resultsCount { font-size: 0.88rem; color: var(--muted); font-weight: 500; }
+#toggleFilters { display: none; }
+.sec-btn {
+  background: rgba(26,30,46,0.8); border: 1px solid var(--border); border-radius: 12px;
+  padding: 0.55rem 1.05rem; color: var(--text); font-weight: 600; font-size: 0.85rem;
+  transition: all 0.25s;
+}
+.sec-btn:hover {
+  border-color: var(--accent); color: var(--accent2);
+  box-shadow: var(--glow); transform: translateY(-1px);
+}
+
+.grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.05rem;
+}
+[data-grid="compact"] .grid { grid-template-columns: repeat(6, 1fr); gap: 0.7rem; }
+[data-grid="large"] .grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+
+.card {
+  background: rgba(16,18,28,0.75);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden; cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; flex-direction: column;
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+.card::before {
+  content: "";
+  position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(145deg, rgba(167,139,250,0.4), transparent 40%, rgba(34,211,238,0.25));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity 0.35s;
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: transparent;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45), 0 0 40px rgba(167,139,250,0.2);
+}
+.card:hover::before { opacity: 1; }
+.card.owned {
+  border-color: rgba(52,211,153,0.4);
+  box-shadow: 0 0 24px rgba(52,211,153,0.12);
+}
+.card.mastered {
+  border-color: rgba(251,191,36,0.45);
+  box-shadow: 0 0 24px rgba(251,191,36,0.15);
+}
+.card-img {
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(167,139,250,0.12), transparent 60%),
+    linear-gradient(160deg, #1a1e2e, #0a0c14);
+  position: relative; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.card-img img {
+  width: 100%; height: 100%; object-fit: contain; padding: 14%;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+}
+.card:hover .card-img img { transform: scale(1.12) translateY(-4px); }
+.card-ph {
+  font-size: 2.2rem; font-weight: 900; color: rgba(167,139,250,0.3);
+}
+.badges {
+  position: absolute; top: 0.55rem; left: 0.55rem; right: 0.55rem;
+  display: flex; justify-content: space-between; gap: 0.3rem; pointer-events: none;
+}
+.badge {
+  font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+  padding: 0.22rem 0.45rem; border-radius: 7px;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+}
+.b-var {
+  background: rgba(34,211,238,0.2); color: var(--cyan);
+  border: 1px solid rgba(34,211,238,0.35);
+  box-shadow: 0 0 10px rgba(34,211,238,0.15);
+}
+.b-rar {
+  background: rgba(167,139,250,0.25); color: var(--accent2);
+  border: 1px solid rgba(167,139,250,0.35);
+}
+.b-rar.rare { background: rgba(96,165,250,0.25); color: #93c5fd; border-color: rgba(96,165,250,0.4); }
+.b-rar.epic { background: rgba(167,139,250,0.3); color: #ddd6fe; border-color: rgba(167,139,250,0.5); }
+.b-rar.legendary { background: rgba(251,191,36,0.25); color: #fcd34d; border-color: rgba(251,191,36,0.45); }
+.b-rar.mythic { background: rgba(248,113,113,0.25); color: #fca5a5; border-color: rgba(248,113,113,0.45); }
+.b-rar.special {
+  background: linear-gradient(135deg, rgba(167,139,250,0.3), rgba(244,114,182,0.25));
+  color: #f9a8d4; border-color: rgba(244,114,182,0.4);
+}
+.card-body {
+  padding: 0.8rem 0.9rem 0.95rem;
+  display: flex; flex-direction: column; gap: 0.28rem; flex: 1;
+  background: linear-gradient(to top, rgba(167,139,250,0.04), transparent);
+}
+.card-name { font-weight: 700; font-size: 0.92rem; letter-spacing: 0.01em; }
+.card-meta { font-size: 0.7rem; color: var(--muted); }
+.card-id {
+  font-family: ui-monospace, monospace; font-size: 0.62rem;
+  color: var(--muted); opacity: 0.65;
+}
+.card-acts { display: flex; gap: 0.4rem; margin-top: 0.4rem; }
+.btn-own, .btn-master {
+  flex: 1; border: 1px solid var(--border); background: rgba(26,30,46,0.8);
+  border-radius: 10px; padding: 0.4rem; font-size: 0.7rem; font-weight: 700;
+  color: var(--muted); transition: all 0.25s;
+}
+.btn-own:hover, .btn-own.on {
+  border-color: var(--ok); color: var(--ok);
+  background: rgba(52,211,153,0.15);
+  box-shadow: 0 0 16px rgba(52,211,153,0.2);
+}
+.btn-master:hover, .btn-master.on {
+  border-color: var(--warn); color: var(--warn);
+  background: rgba(251,191,36,0.15);
+  box-shadow: 0 0 16px rgba(251,191,36,0.2);
+}
+
+.more-wrap { text-align: center; padding: 1.75rem 0; }
+
+/* PAGES */
+.page { max-width: 1400px; margin: 0 auto; padding: 2rem 1.25rem 3.5rem; }
+.page h2 {
+  font-size: 1.7rem; margin-bottom: 0.25rem; font-weight: 800;
+  background: linear-gradient(135deg, #fff, var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.page-sub { color: var(--muted); margin-bottom: 1.35rem; }
+.panel {
+  background: rgba(16,18,28,0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem;
+  max-width: 720px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.panel label {
+  display: block; font-size: 0.72rem; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.06em; margin: 0.8rem 0 0.35rem; font-weight: 700;
+}
+.panel label:first-child { margin-top: 0; }
+.pri-btn { margin-top: 1rem; padding: 0.75rem 1.5rem; }
+.muted { color: var(--muted); font-size: 0.85rem; margin-top: 0.75rem; }
+.bar {
+  height: 12px; background: rgba(26,30,46,0.9); border-radius: 999px;
+  border: 1px solid var(--border); margin: 1.1rem 0 1.35rem; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--cyan), var(--pink));
+  background-size: 200% 100%;
+  animation: barShine 3s linear infinite;
+  transition: width 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 0 16px rgba(167,139,250,0.5);
+}
+@keyframes barShine {
+  to { background-position: 200% 0; }
+}
+.section-title {
+  margin: 1.5rem 0 1rem; color: var(--accent2); font-size: 1.15rem; font-weight: 700;
+}
+.coll-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 0.25rem;
+}
+.coll-head .page-sub { margin-bottom: 0; }
+.coll-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.coll-head .pri-btn { white-space: nowrap; padding: 0.7rem 1.15rem; font-size: 0.85rem; margin-top: 0; }
+
+/* TRADE */
+.trade-hero {
+  max-width: 860px;
+  padding: 1.5rem 1.5rem 1.6rem;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -20%, rgba(167,139,250,0.2), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(34,211,238,0.1), transparent 50%),
+    rgba(16,18,28,0.75);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05), var(--glow);
+  backdrop-filter: blur(20px);
+}
+.trade-hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.2rem;
+}
+.trade-field label {
+  display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); font-weight: 700; margin-bottom: 0.4rem;
+}
+.trade-field input {
+  width: 100%; background: rgba(26,30,46,0.9); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.75rem 0.9rem; outline: none;
+  transition: all 0.25s;
+}
+.trade-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(167,139,250,0.15), var(--glow);
+}
+.trade-vs {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.1rem;
+  align-items: stretch; margin-bottom: 1.2rem;
+}
+.trade-pick {
+  background: rgba(10,12,20,0.6);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.1rem 0.9rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+  transition: all 0.3s;
+}
+.trade-pick:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 28px rgba(167,139,250,0.2);
+  transform: translateY(-2px);
+}
+.trade-pick-label {
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--cyan); font-weight: 800;
+  text-shadow: 0 0 12px rgba(34,211,238,0.4);
+}
+.trade-pick-art {
+  width: 96px; height: 96px; border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(167,139,250,0.2), transparent 60%),
+    linear-gradient(160deg, #1a1e2e, #080a10);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 24px rgba(167,139,250,0.1);
+}
+.trade-pick-art span {
+  font-size: 1.8rem; font-weight: 900; color: rgba(167,139,250,0.3);
+}
+.trade-pick-art img {
+  width: 100%; height: 100%; object-fit: contain; padding: 10%;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+.trade-pick select {
+  width: 100%; background: rgba(16,18,28,0.9); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.55rem 0.6rem; outline: none; font-size: 0.85rem;
+}
+.trade-vs-mid {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.3rem; color: var(--muted); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+}
+.trade-vs-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; color: var(--cyan);
+  background: linear-gradient(145deg, rgba(34,211,238,0.2), rgba(167,139,250,0.15));
+  border: 1px solid rgba(34,211,238,0.45);
+  box-shadow: 0 0 28px rgba(34,211,238,0.25);
+  animation: pulseSwap 2.5s ease-in-out infinite;
+}
+@keyframes pulseSwap {
+  0%, 100% { box-shadow: 0 0 20px rgba(34,211,238,0.2); transform: scale(1); }
+  50% { box-shadow: 0 0 36px rgba(34,211,238,0.4); transform: scale(1.06); }
+}
+.trade-actions { display: flex; flex-direction: column; gap: 0.7rem; }
+.trade-post-btn {
+  width: 100%; padding: 0.95rem 1.5rem; font-size: 1rem;
+  letter-spacing: 0.04em; margin-top: 0;
+}
+.trade-toast {
+  text-align: center; font-size: 0.88rem; font-weight: 700;
+  padding: 0.6rem 0.85rem; border-radius: 12px;
+  background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.4);
+  color: var(--ok); box-shadow: 0 0 20px rgba(52,211,153,0.15);
+}
+.trade-toast.err {
+  background: rgba(248,113,113,0.15); border-color: rgba(248,113,113,0.45);
+  color: var(--danger); box-shadow: 0 0 20px rgba(248,113,113,0.15);
+}
+.trade-list-head {
+  display: flex; align-items: center; gap: 0.7rem; margin-top: 0.35rem;
+}
+.trade-count {
+  font-size: 0.75rem; font-weight: 800; color: var(--accent2);
+  background: rgba(167,139,250,0.2); border: 1px solid var(--border-strong);
+  border-radius: 999px; padding: 0.18rem 0.65rem;
+  box-shadow: 0 0 12px rgba(167,139,250,0.2);
+}
+.trade-card {
+  background:
+    linear-gradient(135deg, rgba(167,139,250,0.1), transparent 45%),
+    rgba(16,18,28,0.75);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 0.9rem;
+  max-width: 860px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.trade-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35), var(--glow);
+}
+.trade-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.9rem;
+}
+.trade-top strong {
+  color: var(--accent2); font-size: 1rem;
+  text-shadow: 0 0 16px rgba(167,139,250,0.3);
+}
+.trade-top span { font-size: 0.7rem; color: var(--muted); }
+.trade-swap {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.85rem; align-items: center;
+}
+.trade-side {
+  background: rgba(10,12,20,0.7); border: 1px solid var(--border); border-radius: 14px;
+  padding: 0.95rem 0.65rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  transition: border-color 0.25s;
+}
+.trade-card:hover .trade-side { border-color: rgba(167,139,250,0.35); }
+.trade-side img {
+  width: 68px; height: 68px; object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+.trade-side small {
+  font-size: 0.58rem; color: var(--cyan); text-transform: uppercase;
+  letter-spacing: 0.1em; font-weight: 800;
+}
+.trade-side div { font-size: 0.84rem; font-weight: 700; }
+.trade-arrow {
+  font-size: 1.45rem; color: var(--cyan); font-weight: 800;
+  text-align: center; text-shadow: 0 0 16px rgba(34,211,238,0.5);
+}
+.trade-note {
+  margin-top: 0.7rem; font-size: 0.82rem; color: var(--muted);
+  padding: 0.5rem 0.7rem; background: rgba(26,30,46,0.7);
+  border-radius: 10px; border-left: 3px solid var(--accent);
+}
+.trade-del {
+  background: transparent; border: 1px solid rgba(248,113,113,0.35);
+  color: var(--danger); font-size: 0.75rem; font-weight: 700;
+  margin-top: 0.7rem; padding: 0.4rem 0.8rem; border-radius: 10px;
+  transition: all 0.2s;
+}
+.trade-del:hover {
+  background: rgba(248,113,113,0.15); border-color: var(--danger);
+  box-shadow: 0 0 16px rgba(248,113,113,0.2);
+}
+.variant-group { margin-bottom: 2.25rem; }
+.variant-group h3 {
+  margin-bottom: 0.85rem; color: var(--accent2); font-weight: 700;
+}
+
+/* MODAL */
+.overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: linear-gradient(160deg, rgba(22,24,36,0.98), rgba(12,14,22,0.98));
+  border: 1px solid var(--border-strong);
+  border-radius: 22px; max-width: 460px; width: 100%; max-height: 90vh;
+  overflow-y: auto; position: relative; padding: 1.5rem;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 60px rgba(167,139,250,0.15);
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.9) translateY(16px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.close {
+  position: absolute; top: 0.8rem; right: 0.8rem; width: 36px; height: 36px;
+  border-radius: 10px; border: 1px solid var(--border); background: rgba(26,30,46,0.9);
+  color: var(--muted); font-size: 1.25rem; transition: all 0.2s;
+}
+.close:hover { color: var(--text); border-color: var(--accent); box-shadow: var(--glow); }
+.modal-img {
+  width: 210px; height: 210px; margin: 0 auto 1.1rem;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(167,139,250,0.2), transparent 60%),
+    linear-gradient(160deg, #1a1e2e, #0a0c14);
+  border-radius: 20px; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(167,139,250,0.15);
+}
+.modal-img img {
+  width: 100%; height: 100%; object-fit: contain; padding: 8%;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45));
+}
+.modal h2 {
+  text-align: center; font-size: 1.4rem; margin-bottom: 0.65rem; font-weight: 800;
+}
+.modal-tags {
+  display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; margin-bottom: 0.9rem;
+}
+.modal-info { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.9rem; }
+.modal-info div { margin-bottom: 0.28rem; }
+.modal-info b { color: var(--text); }
+.ability {
+  background: rgba(26,30,46,0.8); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1rem; margin-bottom: 1.1rem;
+  box-shadow: inset 0 0 30px rgba(167,139,250,0.05);
+}
+.ability h4 {
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent2); margin-bottom: 0.4rem; font-weight: 800;
+}
+.ability p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.85rem; line-height: 1.55; }
+.levels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; }
+.lvl {
+  background: linear-gradient(145deg, rgba(167,139,250,0.15), rgba(34,211,238,0.08));
+  border: 1px solid var(--border); border-radius: 12px; padding: 0.45rem 0.2rem;
+  text-align: center; transition: all 0.2s;
+}
+.lvl:hover {
+  border-color: var(--accent); box-shadow: 0 0 14px rgba(167,139,250,0.25);
+}
+.lvl span { display: block; font-size: 0.62rem; color: var(--muted); font-weight: 800; }
+.lvl b {
+  font-size: 1rem;
+  background: linear-gradient(135deg, var(--accent2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.ability-label {
+  text-align: center; font-size: 0.68rem; color: var(--muted); margin-top: 0.55rem;
+}
+.modal-acts { display: flex; gap: 0.55rem; }
+.modal-acts .btn-own, .modal-acts .btn-master {
+  padding: 0.6rem; font-size: 0.88rem;
+}
+
+/* SETTINGS */
+#settings {
+  justify-content: flex-end; align-items: stretch; padding: 0;
+}
+.settings {
+  width: min(380px, 100%); height: 100%; border-radius: 0; max-width: none;
+  overflow-y: auto;
+  background: rgba(10,12,20,0.95);
+  border-left: 1px solid var(--border-strong);
+  box-shadow: -16px 0 48px rgba(0,0,0,0.4);
+}
+.settings-head {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.35rem;
+}
+.danger-btn {
+  margin-top: 1.6rem; width: 100%;
+  background: rgba(248,113,113,0.12);
+  border: 1px solid rgba(248,113,113,0.4);
+  border-radius: 12px; padding: 0.75rem; color: var(--danger); font-weight: 700;
+  transition: all 0.25s;
+}
+.danger-btn:hover {
+  background: rgba(248,113,113,0.2);
+  box-shadow: 0 0 20px rgba(248,113,113,0.2);
+}
+
+/* Sprite roster additions: longer names, 6 variant tiers */
+.badges { flex-wrap: wrap; row-gap: 0.25rem; }
+.badge { white-space: nowrap; }
+.card-name { line-height: 1.3; overflow-wrap: anywhere; }
+.nw { white-space: nowrap; }
+.card-acts { margin-top: auto; padding-top: 0.4rem; }
+.vbonus {
+  font-size: 0.82rem; color: var(--muted); line-height: 1.45;
+  margin: 0 0 0.85rem; padding: 0.5rem 0.7rem;
+  border-left: 3px solid var(--cyan); background: rgba(34,211,238,0.06);
+  border-radius: 0 10px 10px 0;
+}
+.vbonus b {
+  display: block; margin-bottom: 0.15rem; font-size: 0.62rem; color: var(--cyan);
+  text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800;
+}
+.modal h2 { overflow-wrap: anywhere; padding: 0 1.5rem; }
+
+@media (max-width: 1100px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+  [data-grid="compact"] .grid { grid-template-columns: repeat(5, 1fr); }
+  [data-grid="large"] .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .catalog { grid-template-columns: 1fr; }
+  .filters {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+    width: min(300px, 85vw); transform: translateX(-110%); transition: 0.3s cubic-bezier(0.34,1.2,0.64,1);
+    border-radius: 0; overflow-y: auto;
+  }
+  .filters.open { transform: translateX(0); box-shadow: 16px 0 48px rgba(0,0,0,0.5); }
+  #toggleFilters { display: inline-flex; }
+  .nav-links { display: none; }
+  #btnMenu { display: flex; align-items: center; justify-content: center; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .stats, .dash { grid-template-columns: repeat(2, 1fr); }
+  .trade-hero-grid { grid-template-columns: 1fr; }
+  .trade-vs { grid-template-columns: 1fr; }
+  .trade-vs-mid { flex-direction: row; padding: 0.3rem 0; }
+  .trade-swap { grid-template-columns: 1fr; }
+  .trade-arrow { transform: rotate(90deg); }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .hero-search { flex-direction: column; }
+}
+
+/* Sprite roster additions — mobile overrides (must follow the existing media queries) */
+@media (max-width: 560px) {
+  .badges { top: 0.45rem; left: 0.45rem; right: 0.45rem; gap: 0.25rem; }
+  .badge { font-size: 0.5rem; padding: 0.2rem 0.3rem; letter-spacing: 0.02em; }
+  .card-body { padding: 0.7rem 0.7rem 0.8rem; }
+  .card-acts .btn-own, .card-acts .btn-master { font-size: 0.62rem; padding: 0.4rem 0.15rem; white-space: nowrap; }
+  /* density settings previously out-specified the mobile grid, leaving 4-6 tiny columns on phones */
+  [data-grid="compact"] .grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  [data-grid="large"] .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  [data-grid="compact"] .card-name { font-size: 0.8rem; }
+  [data-grid="compact"] .card-id { display: none; }
+}
+@media (max-width: 360px) {
+  .nav-inner { padding: 0.8rem 0.75rem; gap: 0.5rem; }
+  .nav-right { gap: 0.4rem; }
+  .card-img img { padding-top: 22%; }
+  [data-grid="compact"] .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+}
+
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo" id="logo">◆ SPRITEVAULTFN</a>
+      <nav class="nav-links">
+        <button type="button" class="nav-btn active" data-page="sprites">Sprites</button>
+        <button type="button" class="nav-btn" data-page="collection">Collection</button>
+        <button type="button" class="nav-btn" data-page="trade">Trade</button>
+        <button type="button" class="nav-btn" data-page="variants">Variants</button>
+        <button type="button" class="nav-btn" data-page="about">About</button>
+      </nav>
+      <div class="nav-right">
+        <div class="ring" title="Progress">
+          <svg viewBox="0 0 36 36"><path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/><path class="ring-fill" id="ringFill" stroke-dasharray="0,100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/></svg>
+          <span id="ringPct">0%</span>
+        </div>
+        <button type="button" class="icon-btn" id="btnSettings" title="Settings">⚙</button>
+        <button type="button" class="icon-btn" id="btnMenu" title="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="nav-btn" data-page="sprites">Sprites</button>
+    <button type="button" class="nav-btn" data-page="collection">Collection</button>
+    <button type="button" class="nav-btn" data-page="trade">Trade</button>
+    <button type="button" class="nav-btn" data-page="variants">Variants</button>
+    <button type="button" class="nav-btn" data-page="about">About</button>
+  </div>
+
+  <main>
+    <!-- SPRITES PAGE -->
+    <div id="page-sprites">
+      <section class="hero">
+        <h1>SPRITEVAULTFN</h1>
+        <p class="tagline">Explore the Fortnite Sprite Collection</p>
+        <p class="sub">Discover, collect and master every sprite.</p>
+        <div class="hero-search">
+          <input type="search" id="heroSearch" placeholder="Search by name or ID..." />
+          <button type="button" id="heroSearchBtn">Search</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="statTotal">0</b><span>Sprites</span></div>
+          <div class="stat"><b id="statOwned">0</b><span>Owned</span></div>
+          <div class="stat"><b id="statMastered">0</b><span>Mastered</span></div>
+          <div class="stat accent"><b id="statProgress">0%</b><span>Progress</span></div>
+        </div>
+      </section>
+
+      <section class="dash">
+        <div><span>SPRITES</span><b id="dashTotal">0</b></div>
+        <div><span>OWNED</span><b id="dashOwned">0</b></div>
+        <div><span>MASTERED</span><b id="dashMastered">0</b></div>
+        <div><span>PROGRESS</span><b id="dashProgress">0%</b></div>
+      </section>
+
+      <section class="catalog">
+        <aside class="filters" id="filters">
+          <div class="filters-head">
+            <h2>Filters</h2>
+            <button type="button" class="link-btn" id="clearFilters">Clear</button>
+          </div>
+          <label>Search</label>
+          <input type="search" id="filterSearch" placeholder="Name or ID" />
+          <label>Variant</label>
+          <div class="chips" id="chipVariant"></div>
+          <label>Rarity</label>
+          <div class="chips" id="chipRarity"></div>
+          <label>Season</label>
+          <select id="filterSeason"><option value="all">All Seasons</option></select>
+          <label>Status</label>
+          <div class="chips" id="chipStatus">
+            <button type="button" class="chip active" data-v="all">All</button>
+            <button type="button" class="chip" data-v="owned">Owned</button>
+            <button type="button" class="chip" data-v="not-owned">Not Owned</button>
+            <button type="button" class="chip" data-v="mastered">Mastered</button>
+            <button type="button" class="chip" data-v="not-mastered">Not Mastered</button>
+            <button type="button" class="chip" data-v="unreleased">Unreleased</button>
+          </div>
+          <label>Sort</label>
+          <select id="filterSort">
+            <option value="default">Default order</option>
+            <option value="name-asc">Name A-Z</option>
+            <option value="name-desc">Name Z-A</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="rarity">Rarity</option>
+            <option value="id">Sprite ID</option>
+          </select>
+        </aside>
+
+        <div class="main-col">
+          <div class="toolbar">
+            <span id="resultsCount">Loading…</span>
+            <button type="button" class="sec-btn" id="toggleFilters">Filters</button>
+          </div>
+          <div class="grid" id="spriteGrid"></div>
+          <div class="more-wrap" id="moreWrap" hidden>
+            <button type="button" class="sec-btn" id="btnMore">Load more</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- COLLECTION -->
+    <div id="page-collection" class="page" hidden>
+      <div class="coll-head">
+        <div>
+          <h2>My Collection</h2>
+          <p class="page-sub">Track owned and mastered sprites.</p>
+        </div>
+        <div class="coll-btns">
+          <button type="button" class="pri-btn" id="btnExportImg">Save as image</button>
+          <button type="button" class="pri-btn" id="btnExportTxt">Save as text</button>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="cTotal">0</b><span>Total</span></div>
+        <div class="stat"><b id="cOwned">0</b><span>Owned</span></div>
+        <div class="stat"><b id="cMastered">0</b><span>Mastered</span></div>
+        <div class="stat"><b id="cRemain">0</b><span>Remaining</span></div>
+        <div class="stat accent"><b id="cProgress">0%</b><span>Progress</span></div>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <div class="chips" id="collChips">
+        <button type="button" class="chip active" data-v="all">All</button>
+        <button type="button" class="chip" data-v="owned">Owned</button>
+        <button type="button" class="chip" data-v="missing">Missing</button>
+        <button type="button" class="chip" data-v="mastered">Mastered</button>
+        <button type="button" class="chip" data-v="unmastered">Unmastered</button>
+      </div>
+      <div class="grid" id="collGrid"></div>
+    </div>
+
+    <!-- TRADE -->
+    <div id="page-trade" class="page" hidden>
+      <h2>Trade Board</h2>
+      <p class="page-sub">Post offers locally. Name · offer · want — no account needed.</p>
+
+      <form id="tradeForm" class="trade-hero panel">
+        <div class="trade-hero-grid">
+          <div class="trade-field">
+            <label>Your name</label>
+            <input type="text" id="tradeName" maxlength="32" required placeholder="Epic / Discord name" autocomplete="off" />
+          </div>
+          <div class="trade-field">
+            <label>Note</label>
+            <input type="text" id="tradeNote" maxlength="120" placeholder="Platform, contact…" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="trade-vs">
+          <div class="trade-pick" id="offerPreview">
+            <span class="trade-pick-label">You offer</span>
+            <div class="trade-pick-art" id="offerArt"><span>?</span></div>
+            <select id="tradeOffer" required><option value="">Select sprite…</option></select>
+          </div>
+          <div class="trade-vs-mid">
+            <div class="trade-vs-icon">⇄</div>
+            <span>SWAP</span>
+          </div>
+          <div class="trade-pick" id="wantPreview">
+            <span class="trade-pick-label">You want</span>
+            <div class="trade-pick-art" id="wantArt"><span>?</span></div>
+            <select id="tradeWant" required><option value="">Select sprite…</option></select>
+          </div>
+        </div>
+        <div class="trade-actions">
+          <button type="submit" class="pri-btn trade-post-btn">Post Trade</button>
+          <p class="trade-toast" id="tradeToast" hidden></p>
+        </div>
+      </form>
+
+      <div class="trade-list-head">
+        <h3 class="section-title">Open trades</h3>
+        <span class="trade-count" id="tradeCount">0</span>
+      </div>
+      <div id="tradeList"></div>
+    </div>
+
+    <!-- VARIANTS -->
+    <div id="page-variants" class="page" hidden>
+      <h2>Variants</h2>
+      <p class="page-sub">Sprites grouped by variant type.</p>
+      <div id="variantsContent"></div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="page-about" class="page" hidden>
+      <h2>About SpriteVaultFN</h2>
+      <div class="panel">
+        <p>Premium Fortnite sprite collection tracker. Mark Owned and Mastered, filter, trade notes, and track progress — all saved in your browser.</p>
+        <p class="muted">Roster current as of October 10, 2026 (Chapter 7 Season 4 · Override, patch v42.30). Honey and Obsession are announced for October 15 and will be added when they release.</p>
+        <p class="muted">Not affiliated with Epic Games. Sprite art © Epic Games, used for identification only.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="overlay" id="modal" hidden>
+    <div class="modal" id="modalBox">
+      <button type="button" class="close" id="modalClose">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="overlay" id="settings" hidden>
+    <div class="settings panel">
+      <div class="settings-head"><h3>Settings</h3><button type="button" class="close" id="settingsClose">×</button></div>
+      <label>Theme</label>
+      <div class="chips" id="setTheme">
+        <button type="button" class="chip active" data-v="dark">Dark</button>
+        <button type="button" class="chip" data-v="amoled">AMOLED</button>
+        <button type="button" class="chip" data-v="light">Light</button>
+      </div>
+      <label>Grid</label>
+      <div class="chips" id="setGrid">
+        <button type="button" class="chip" data-v="compact">Compact</button>
+        <button type="button" class="chip active" data-v="comfortable">Comfortable</button>
+        <button type="button" class="chip" data-v="large">Large</button>
+      </div>
+      <button type="button" class="danger-btn" id="btnReset">Reset Collection</button>
+    </div>
+  </div>
+
+  <script>
+(function () {
+  'use strict';
+
+  var IMG = 'https://staticvacant.github.io/fnsprites/sprites/';
+  var COL_KEY = 'sv_col_v2';
+  var TRADE_KEY = 'sv_trade_v2';
+  var SET_KEY = 'sv_set_v2';
+  var PAGE = 30;
+
+  // Display order for variant / rarity chips and the Variants page
+  var VARIANT_ORDER = ['Base', 'Gold', 'Cheat Master', 'Loot Hacker', 'Bounty Hunter', 'Trick or Treat'];
+  var RARITY_ORDER = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Special'];
+
+  // In-game variant bonuses (shown in the sprite modal)
+  var VARIANT_BONUS = {
+    'Gold': 'Gain 3x bonus XP from eliminations.',
+    'Cheat Master': 'Cheat codes found in the world are entered correctly for you.',
+    'Loot Hacker': 'Increases the chance of items spawning from your Loot Hacks.',
+    'Bounty Hunter': 'Chance to find Sprites when eliminating opponents. Only gains Sprite XP from eliminations, unless the Sprite has special XP rules.',
+    'Trick or Treat': 'Variant bonus not yet published by Epic.'
+  };
+
+  // Backup icon source (official in-game icons). Used only if the primary image fails to load.
+  var ALT_IMG = 'https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_';
+  var ALT_STEMS = {"bush":["BushRanger","BushRanger_Gold","BushRanger_Cheatmaster","BushRanger_Hacker","BushRanger_BountyHunter","BushRanger_TrickTreat"],"jonesy":["Jonesy","Jonesy_Gold","Jonesy_Cheatmaster","Jonesy_Hacker","Jonesy_BountyHunter","Jonesy_TrickTreat"],"adventure":["Dwarf","Dwarf_Gold","Dwarf_Cheatmaster","Dwarf_Hacker","Dwarf_BountyHunter","Dwarf_TrickTreat"],"8bit":["EightBitBlaster","EightBitBlaster_Gold","EightBitBlaster_Cheatmaster","EightBitBlaster_Hacker","8BitBlaster_BountyHunter","8BitBlaster_TrickTreat"],"sonic":["NarrowFlea_Obsidian","NarrowFlea_Obsidian_Gold","NarrowFlea_Obsidian_Cheatmaster","NarrowFlea_Hacker","NarrowFlea_BountyHunter","NarrowFlea_TrickTreat"],"tails":["NarrowFlea_Monkey","NarrowFlea_Monkey_Gold","NarrowFlea_Monkey_Cheatmaster","NarrowFlea_Monkey_Hacker","NarrowFleaMonkey_BountyHunter","NarrowFleaMonkey_TrickTreat"],"shadow":["NarrowFlea_Scribe","NarrowFlea_Scribe_Gold","NarrowFlea_Scribe_Cheatmaster","ReloadOverTime_Hacker","ReloadOverTime_BountyHunter","ReloadOverTime_TrickTreat"],"killswitch":["Killswitch","Killswitch_Gold","Killswitch_Cheatmaster","Killswitch_Hacker","Killswitch_BountyHunter","Killswitch_TrickTreat"],"jackrabbit":["JazzJackrabbit","JazzJackrabbit_Gold","JazzJackrabbit_Cheatmaster","DoubleJump_Hacker","DoubleJump_BountyHunter","DoubleJump_TrickTreat"],"stormking":["StormScout","StormScout_Gold","StormScout_Cheatmaster","StormScout_Hacker","StormScout_BountyHunter","StormScout_TrickTreat"],"klombo":["Klombo","Klombo_Gold","Klombo_Cheatmaster","Klombo_Hacker","Klombo_BountyHunter","Klombo_TrickTreat"],"crown":["Crown","Crown_Gold","Crown_Cheatmaster","Crown_Hacker","Crown_BountyHunter","Crown_TrickTreat"],"megaman":["ImprovedSlide"],"overshield":["Overshield","Overshield_Gold","Overshield_Cheatmaster","Overshield_Hacker","Overshield_BountyHunter","Overshield_TrickTreat"],"xray":["WinnerB","WinnerB_Gold","WinnerB_Cheatmaster","WinnerB_Hacker","WinnerB_BountyHunter","WinnerB_TrickTreat"],"onigiri":["WinnerC","WinnerC_Gold","WinnerC_Cheatmaster","WinnerC_Hacker","WinnerC_BountyHunter","WinnerC_TrickTreat"],"blinky":["GhostDamage","GhostDamage_Gold","GhostDamage_Cheatmaster","GhostDamage_Hacker","GhostDamage_BountyHunter","GhostDamage_TrickTreat"],"crash":["BodySlam","BodySlam_Gold","BodySlam_Cheatmaster","BodySlam_Hacker","BodySlam_BountyHunter","BodySlam_TrickTreat"],"pond":["WinnerA","WinnerA_Gold","WinnerA_Cheatmaster","WinnerA_Hacker","WinnerA_BountyHunter","WinnerA_TrickTreat"],"morgana":["IncreaseHeals","IncreaseHeals_Gold","IncreaseHeals_Cheatmaster","IncreaseHeals_Hacker","IncreaseHeals_BountyHunter","IncreaseHeals_TrickTreat"],"birthday":["Birthday","Birthday_Gold","Birthday_Cheatmaster","Birthday_Hacker","Birthday_BountyHunter","Birthday_TrickTreat"],"spookydash":["PhaseDash","PhaseDash_Gold","PhaseDash_Cheatmaster","PhaseDash_Hacker","PhaseDash_BountyHunter","PhaseDash_TrickTreat"],"vampire":["HealthSiphon","HealthSiphon_Gold","HealthSiphon_Cheatmaster","HealthSiphon_Hacker","HealthSiphon_BountyHunter","HealthSiphon_TrickTreat"],"deer":["IncreasedMelee","IncreasedMelee_Gold","IncreasedMelee_Cheatmaster","IncreasedMelee_Hacker","IncreasedMelee_BountyHunter","IncreasedMelee_TrickTreat"],"dumpster":["WinnerD","WinnerD_Gold","WinnerD_Cheatmaster","WinnerD_Hacker","WinnerD_BountyHunter","WinnerD_TrickTreat"]};
+  var TIER_IDX = { basic: 0, gold: 1, cheat: 2, hacker: 3, bounty: 4, trick: 5 };
+
+  var RAW = [
+    // Base (Normal) — real in-game rarities
+    {id:'bush_basic',name:'Bush',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'jonesy_basic',name:'Jonesy',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'adventure_basic',name:'Adventure',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'8bit_basic',name:'8-Bit',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'sonic_basic',name:'Sonic',variant:'Base',rarity:'Epic',season:'Override',unreleased:false},
+    {id:'tails_basic',name:'Tails',variant:'Base',rarity:'Epic',season:'Override',unreleased:false},
+    {id:'shadow_basic',name:'Shadow',variant:'Base',rarity:'Epic',season:'Override',unreleased:false},
+    {id:'killswitch_basic',name:'Killswitch',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'jackrabbit_basic',name:'Jackrabbit',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'stormking_basic',name:'Storm Scout',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'klombo_basic',name:'Klombo',variant:'Base',rarity:'Mythic',season:'Override',unreleased:false},
+    {id:'crown_basic',name:'Crown',variant:'Base',rarity:'Mythic',season:'Override',unreleased:false},
+    {id:'megaman_basic',name:'Mega Man',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'overshield_basic',name:'Overshield',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'xray_basic',name:'X-Ray',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'onigiri_basic',name:'Onigiri',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'blinky_basic',name:'Blinky',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'crash_basic',name:'Crash Bandicoot',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'pond_basic',name:'Pond',variant:'Base',rarity:'Epic',season:'Override',unreleased:false},
+    {id:'morgana_basic',name:'Morgana',variant:'Base',rarity:'Epic',season:'Override',unreleased:false},
+    {id:'birthday_basic',name:'Birthday',variant:'Base',rarity:'Rare',season:'Override',unreleased:false},
+    {id:'spookydash_basic',name:'Spooky Dash',variant:'Base',rarity:'Mythic',season:'Override',unreleased:false},
+    {id:'vampire_basic',name:'Vampire',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'deer_basic',name:'The Deer',variant:'Base',rarity:'Legendary',season:'Override',unreleased:false},
+    {id:'dumpster_basic',name:'Dumpster Dive',variant:'Base',rarity:'Epic',season:'Override',unreleased:false},
+    // Gold — Special finish
+    {id:'bush_gold',name:'Gold Bush',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jonesy_gold',name:'Gold Jonesy',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'adventure_gold',name:'Gold Adventure',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'8bit_gold',name:'Gold 8-Bit',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'sonic_gold',name:'Gold Sonic',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'tails_gold',name:'Gold Tails',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'shadow_gold',name:'Gold Shadow',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'killswitch_gold',name:'Gold Killswitch',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jackrabbit_gold',name:'Gold Jackrabbit',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'stormking_gold',name:'Gold Storm Scout',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'klombo_gold',name:'Gold Klombo',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crown_gold',name:'Gold Crown',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'overshield_gold',name:'Gold Overshield',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'xray_gold',name:'Gold X-Ray',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'onigiri_gold',name:'Gold Onigiri',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'blinky_gold',name:'Gold Blinky',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crash_gold',name:'Gold Crash Bandicoot',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'pond_gold',name:'Gold Pond',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'morgana_gold',name:'Gold Morgana',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'birthday_gold',name:'Gold Birthday',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'spookydash_gold',name:'Gold Spooky Dash',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'vampire_gold',name:'Gold Vampire',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'deer_gold',name:'Gold The Deer',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    {id:'dumpster_gold',name:'Gold Dumpster Dive',variant:'Gold',rarity:'Special',season:'Override',unreleased:false},
+    // Cheat Master — Special finish
+    {id:'bush_cheat',name:'Cheat Master Bush',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jonesy_cheat',name:'Cheat Master Jonesy',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'adventure_cheat',name:'Cheat Master Adventure',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'8bit_cheat',name:'Cheat Master 8-Bit',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'sonic_cheat',name:'Cheat Master Sonic',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'tails_cheat',name:'Cheat Master Tails',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'shadow_cheat',name:'Cheat Master Shadow',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'killswitch_cheat',name:'Cheat Master Killswitch',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jackrabbit_cheat',name:'Cheat Master Jackrabbit',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'stormking_cheat',name:'Cheat Master Storm Scout',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'klombo_cheat',name:'Cheat Master Klombo',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crown_cheat',name:'Cheat Master Crown',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'overshield_cheat',name:'Cheat Master Overshield',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'xray_cheat',name:'Cheat Master X-Ray',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'onigiri_cheat',name:'Cheat Master Onigiri',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'blinky_cheat',name:'Cheat Master Blinky',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crash_cheat',name:'Cheat Master Crash Bandicoot',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'pond_cheat',name:'Cheat Master Pond',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'morgana_cheat',name:'Cheat Master Morgana',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'birthday_cheat',name:'Cheat Master Birthday',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'spookydash_cheat',name:'Cheat Master Spooky Dash',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'vampire_cheat',name:'Cheat Master Vampire',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'deer_cheat',name:'Cheat Master The Deer',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    {id:'dumpster_cheat',name:'Cheat Master Dumpster Dive',variant:'Cheat Master',rarity:'Special',season:'Override',unreleased:false},
+    // Loot Hacker — Special finish
+    {id:'bush_hacker',name:'Loot Hacker Bushranger',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jonesy_hacker',name:'Loot Hacker Jonesy',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'adventure_hacker',name:'Loot Hacker Adventure',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'8bit_hacker',name:'Loot Hacker 8-Bit',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'sonic_hacker',name:'Loot Hacker Sonic',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'tails_hacker',name:'Loot Hacker Tails',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'shadow_hacker',name:'Loot Hacker Shadow',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'killswitch_hacker',name:'Loot Hacker Killswitch',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jackrabbit_hacker',name:'Loot Hacker Jackrabbit',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'stormking_hacker',name:'Loot Hacker Storm Scout',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'klombo_hacker',name:'Loot Hacker Klombo',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crown_hacker',name:'Loot Hacker Crown',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'overshield_hacker',name:'Loot Hacker Overshield',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'xray_hacker',name:'Loot Hacker X-Ray',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'onigiri_hacker',name:'Loot Hacker Onigiri',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'blinky_hacker',name:'Loot Hacker Blinky',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crash_hacker',name:'Loot Hacker Crash Bandicoot',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'pond_hacker',name:'Loot Hacker Pond',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'morgana_hacker',name:'Loot Hacker Morgana',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'birthday_hacker',name:'Loot Hacker Birthday',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'spookydash_hacker',name:'Loot Hacker Spooky Dash',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'vampire_hacker',name:'Loot Hacker Vampire',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'deer_hacker',name:'Loot Hacker The Deer',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    {id:'dumpster_hacker',name:'Loot Hacker Dumpster Dive',variant:'Loot Hacker',rarity:'Special',season:'Override',unreleased:false},
+    // Bounty Hunter — Special finish
+    {id:'bush_bounty',name:'Bounty Hunter Bush',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jonesy_bounty',name:'Bounty Hunter Jonesy',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'adventure_bounty',name:'Bounty Hunter Adventure',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'8bit_bounty',name:'Bounty Hunter 8-Bit',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'sonic_bounty',name:'Bounty Hunter Sonic',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'tails_bounty',name:'Bounty Hunter Tails',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'shadow_bounty',name:'Bounty Hunter Shadow',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'killswitch_bounty',name:'Bounty Hunter Killswitch',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jackrabbit_bounty',name:'Bounty Hunter Jackrabbit',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'stormking_bounty',name:'Bounty Hunter Storm Scout',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'klombo_bounty',name:'Bounty Hunter Klombo',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crown_bounty',name:'Bounty Hunter Crown',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'overshield_bounty',name:'Bounty Hunter Overshield',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'xray_bounty',name:'Bounty Hunter X-Ray',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'onigiri_bounty',name:'Bounty Hunter Onigiri',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'blinky_bounty',name:'Bounty Hunter Blinky',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crash_bounty',name:'Bounty Hunter Crash Bandicoot',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'pond_bounty',name:'Bounty Hunter Pond',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'morgana_bounty',name:'Bounty Hunter Morgana',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'birthday_bounty',name:'Bounty Hunter Birthday',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'spookydash_bounty',name:'Bounty Hunter Spooky Dash',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'vampire_bounty',name:'Bounty Hunter Vampire',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'deer_bounty',name:'Bounty Hunter The Deer',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    {id:'dumpster_bounty',name:'Bounty Hunter Dumpster Dive',variant:'Bounty Hunter',rarity:'Special',season:'Override',unreleased:false},
+    // Trick or Treat — Special finish
+    {id:'bush_trick',name:'Trick or Treat Bushranger',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jonesy_trick',name:'Trick or Treat Jonesy',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'adventure_trick',name:'Trick or Treat Adventure',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'8bit_trick',name:'Trick or Treat 8-Bit',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'sonic_trick',name:'Trick or Treat Sonic',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'tails_trick',name:'Trick or Treat Tails',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'shadow_trick',name:'Trick or Treat Shadow',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'killswitch_trick',name:'Trick or Treat Killswitch',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'jackrabbit_trick',name:'Trick or Treat Jackrabbit',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'stormking_trick',name:'Trick or Treat Storm Scout',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'klombo_trick',name:'Trick or Treat Klombo',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crown_trick',name:'Trick or Treat Crown',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'overshield_trick',name:'Trick or Treat Overshield',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'xray_trick',name:'Trick or Treat X-Ray',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'onigiri_trick',name:'Trick or Treat Onigiri',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'blinky_trick',name:'Trick or Treat Blinky',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'crash_trick',name:'Trick or Treat Crash Bandicoot',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'pond_trick',name:'Trick or Treat Pond',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'morgana_trick',name:'Trick or Treat Morgana',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'birthday_trick',name:'Trick or Treat Birthday',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'spookydash_trick',name:'Trick or Treat Spooky Dash',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'vampire_trick',name:'Trick or Treat Vampire',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'deer_trick',name:'Trick or Treat The Deer',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    {id:'dumpster_trick',name:'Trick or Treat Dumpster Dive',variant:'Trick or Treat',rarity:'Special',season:'Override',unreleased:false},
+    // Unreleased
+    {id:'honey_basic',name:'Honey',variant:'Base',rarity:'Mythic',season:'Override',unreleased:true},
+    {id:'bullet_basic',name:'Bullet',variant:'Base',rarity:'Mythic',season:'Override',unreleased:true}
+  ];
+
+  var ABILITY = {
+    water: { text: 'Replenishes shields for you and nearby squadmates while in water.', levels: [2,3,4,5,6], label: 'Shield / tick' },
+    earth: { text: 'Increases your chance of finding additional rare items in chests.', levels: [5,8,12,16,20], label: 'Bonus chance %' },
+    fire: { text: 'Creates a fiery burst when you deal enough damage to an enemy.', levels: [150,130,110,90,70], label: 'Damage to trigger' },
+    air: { text: 'Sprint faster, jump higher while sprinting, and take zero fall damage.', levels: [5,8,12,16,20], label: 'Speed bonus %' },
+    fishy: { text: 'Swim speed way up, plus a brief movement speed boost when you take damage.', levels: [10,15,20,25,30], label: 'Swim speed %' },
+    duck: { text: 'Replenishes shields when you emote or use Jam Tracks.', levels: [5,8,12,16,20], label: 'Shield on emote' },
+    ghost: { text: 'When reloading, you become cloaked for a short duration.', levels: [1.5,2,2.5,3,4], label: 'Cloak seconds' },
+    demon: { text: 'When you defeat an opponent, you siphon Health and Shield from them.', levels: [10,15,20,25,35], label: 'Siphon amount' },
+    king: { text: 'Increases your Pickaxe damage.', levels: [25,50,75,100,125], label: 'Pickaxe bonus %' },
+    striker: { text: 'Boosts combat effectiveness after eliminations.', levels: [1,2,3,4,5], label: 'Level power' },
+    aura: { text: 'Grants a Shock Rock charge after dealing enough damage.', levels: [175,150,125,100,75], label: 'Damage to charge' },
+    dream: { text: 'Grants a random item at each level. At max level, explodes with Legendary loot.', levels: [1,2,3,4,5], label: 'Items / level' },
+    punk: { text: 'Unpredictable effects. At max level can grant infinite ammo.', levels: [1,2,3,4,5], label: 'Chaos tier' },
+    boss: { text: 'Empowers your presence in fights as it levels up.', levels: [1,2,3,4,5], label: 'Level power' },
+    seven: { text: 'Makes enemy footsteps visible to your whole squad.', levels: [10,15,20,25,30], label: 'Trail seconds' },
+    llama: { text: 'Chance of a weapon upgrade when you open an ammo box.', levels: [5,8,12,16,20], label: 'Upgrade chance %' },
+    peely: { text: 'Marks nearby rare sprite variants and enemies carrying them.', levels: [40,50,60,70,80], label: 'Range (m)' },
+    zeropoint: { text: 'Spawns a Shield Bubble Jr. when you use a healing item on yourself.', levels: [1,1,1,1,1], label: 'Bubble on heal' },
+    grim: { text: 'A deadly companion with stronger pressure bonuses as it levels.', levels: [1,2,3,4,5], label: 'Level power' },
+    batman: { text: 'Anyone who attacks you gets marked for a short duration.', levels: [3,3.5,4,4.5,5], label: 'Mark seconds' },
+    wick: { text: 'Reveals nearby enemies after you knock or eliminate a player.', levels: [3,3.5,4,4.5,5], label: 'Reveal seconds' },
+    ironmouse: { text: 'When health is low, triggers healing with Cloak and low gravity.', levels: [40,55,70,85,100], label: 'Max heal HP' },
+    sonic: { text: 'Gotta go fast! Increases your sprinting speed.', levels: [5,8,12,16,20], label: 'Sprint bonus %' },
+    tails: { text: 'Hover with the help of Tails! Cancels fall damage while hovering.', levels: [1,1.5,2,2.5,3], label: 'Hover seconds' },
+    shadow: { text: 'Automatically reloads weapons over time, even when unequipped.', levels: [8,6.5,5,4,3], label: 'Reload interval (s)' },
+    jackrabbit: { text: 'Perform another jump while mid-air (double jump).', levels: [1,1,1,1,1], label: 'Extra jumps' },
+    klombo: { text: 'Grants random items at each level. Levels only from Health/Shield consumables.', levels: [1,2,3,4,5], label: 'Items / level' },
+    crown: { text: 'Gain extra Crown Wins after a Victory Royale. Levels only by winning.', levels: [1,2,3,4,5], label: 'Bonus crowns' },
+    bush: { text: 'Spawns a Bush on you after a duration. At max level, Bush on elimination.', levels: [30,25,20,15,10], label: 'Bush cooldown (s)' },
+    jonesy: { text: 'After a short duration, recover Health or Shield after being damaged.', levels: [10,15,20,25,30], label: 'Recover amount' },
+    killswitch: { text: 'Enter Hangtime with improved accuracy when aiming while jumping and falling. Accuracy increases with each Level Up!', levels: [3,3.5,4,4.5,5], label: 'Accuracy power' },
+    adventure: { text: 'Upgrade a random item in your inventory at each Level.', levels: [1,1,1,1,1], label: 'Upgrades / level' },
+    '8bit': { text: 'Find an 8-Bit Shotgun in your first Chest and gain a score multiplier for it.', levels: [1.1,1.2,1.3,1.4,1.5], label: 'Score multiplier' },
+    stormking: { text: 'After you take 10 Storm damage, grants Overdrive and unlimited Energy that last longer with each level (about 10\u201320s). At max level it also reveals future Storm Circles.', levels: [1,2,3,4,5], label: 'Level power' },
+    megaman: { text: 'Reduced friction while sliding, so you glide farther.', levels: [1,2,3,4,5], label: 'Level power' },
+    overshield: { text: 'Grants an Overshield that grows stronger as the Sprite levels up.', levels: [1,2,3,4,5], label: 'Level power' },
+    xray: { text: 'Periodically marks enemies in an area around you.', levels: [1,2,3,4,5], label: 'Level power' },
+    onigiri: { text: 'Applies Overdrive after you eat or drink a consumable.', levels: [1,2,3,4,5], label: 'Level power' },
+    blinky: { text: 'Taking damage cloaks you for a short time. Cloak duration increases with each level.', levels: [1,2,3,4,5], label: 'Level power' },
+    crash: { text: 'Jumping in mid-air triggers a whirlwind attack that damages and knocks back nearby enemies. Damage rises and cooldown drops with each level.', levels: [1,2,3,4,5], label: 'Level power' },
+    pond: { text: 'Jump shortly after landing to perform a Super Jump.', levels: [1,2,3,4,5], label: 'Level power' },
+    morgana: { text: 'Increases the effectiveness of your healing items, more so with each level.', levels: [1,2,3,4,5], label: 'Level power' },
+    birthday: { text: 'Opening chests can spawn a slice of cake. At max level, eliminations can spawn cake too. The chance grows with each level.', levels: [1,2,3,4,5], label: 'Level power' },
+    spookydash: { text: 'Dash through some objects using replenishing charges when you jump in mid-air. Charge cooldown shortens with each level.', levels: [1,2,3,4,5], label: 'Level power' },
+    vampire: { text: 'Heal as you damage enemies. A larger share is recovered at higher levels.', levels: [1,2,3,4,5], label: 'Level power' },
+    deer: { text: 'Increases your melee damage.', levels: [1,2,3,4,5], label: 'Level power' },
+    dumpster: { text: 'Improves food healing and produces food when you leave hiding props, with a small chance of a container. Food quality improves with each level.', levels: [1,2,3,4,5], label: 'Level power' },
+    honey: { text: 'Sends bees after enemies who damage you. (Announced for October 15.)', levels: [1,2,3,4,5], label: 'Level power' }
+  };
+
+  var sprites = [];
+  var owned = {};
+  var mastered = {};
+  var trades = [];
+  var filters = { search: '', variant: 'all', rarity: 'all', season: 'all', status: 'all', sort: 'default' };
+  var page = 0;
+  var filtered = [];
+  var updateTradePreviewGlobal = null;
+
+  function $(id) { return document.getElementById(id); }
+  // Normalise values for comparison (case / whitespace safe)
+  function norm(v) { return String(v == null ? '' : v).replace(/\s+/g, ' ').trim().toLowerCase(); }
+  function family(id) { return String(id).split('_')[0]; }
+  // Default display order: Base first, then Gold, Cheat Master, Loot Hacker, Bounty Hunter,
+  // Trick or Treat. Inside each variant: rarity ascending (Rare, Epic, Legendary, Mythic).
+  var RARITY_RANK = { Common: 1, Uncommon: 2, Rare: 3, Epic: 4, Legendary: 5, Mythic: 6, Special: 7 };
+  // Unreleased sprites always go last, after Trick or Treat.
+  function byRarity(a, b) {
+    var va = VARIANT_ORDER.indexOf(a.variant), vb = VARIANT_ORDER.indexOf(b.variant);
+    if (va < 0) va = 99; if (vb < 0) vb = 99;
+    return ((a.unreleased ? 1 : 0) - (b.unreleased ? 1 : 0)) ||
+      (va - vb) ||
+      ((RARITY_RANK[a.rarity] || 99) - (RARITY_RANK[b.rarity] || 99)) ||
+      (a.idx - b.idx);
+  }
+  function ability(s) {
+    return ABILITY[family(s.id)] || { text: 'Companion power that grows stronger from L1 to L5.', levels: [1,2,3,4,5], label: 'Level power' };
+  }
+  function imgUrl(id) { return IMG + encodeURIComponent(id) + '.png'; }
+  function altUrl(id) {
+    var parts = String(id).split('_');
+    var stems = ALT_STEMS[parts[0]];
+    var stem = stems ? stems[TIER_IDX[parts[1]]] : null;
+    return stem ? ALT_IMG + stem + '_L.webp' : '';
+  }
+  function baseName(name) {
+    return String(name).replace(/^(Gold|Cheat Master|Loot Hacker|Bounty Hunter|Trick or Treat) /, '');
+  }
+  function fmtName(name) {
+    return String(name).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>');
+  }
+  function initialsOf(name) {
+    return baseName(name).split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+  }
+  function ordered(field, order) {
+    var arr = unique(field);
+    arr.sort(function (a, b) {
+      var ia = order.indexOf(a), ib = order.indexOf(b);
+      if (ia < 0) ia = 99; if (ib < 0) ib = 99;
+      return (ia - ib) || (a < b ? -1 : a > b ? 1 : 0);
+    });
+    return arr;
+  }
+  // Image error handler: try backup icon once, then show placeholder / hide
+  window.svImgErr = function (el) {
+    var alt = el.getAttribute('data-alt');
+    if (alt && !el.getAttribute('data-tried')) {
+      el.setAttribute('data-tried', '1');
+      el.src = alt;
+      return;
+    }
+    var ph = el.nextElementSibling;
+    if (ph && ph.classList.contains('card-ph')) { el.style.display = 'none'; ph.style.display = 'flex'; }
+    else if (el.getAttribute('data-q')) { el.parentNode.innerHTML = '<span>?</span>'; }
+    else { el.style.display = 'none'; }
+  };
+
+
+  // ---- Background removal for sprites whose source PNG has an opaque background ----
+  var CLEAN_IDS = ['xray_basic', 'pond_basic', 'dumpster_basic'];
+  var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+  // ---- Pixel-readable image resolver (used by export AND background cleanup) ----
+  // Why: the page shows many sprites through a plain <img>, which works even when the host sends
+  // no CORS headers (e.g. the fortnite.gg backup icons) or when the primary .png does not exist.
+  // A canvas, however, can only read images that were loaded with CORS approval. So for every
+  // sprite we try each known source directly, then through a CORS-enabled image proxy, and keep
+  // the first one that loads. Only if every source fails is the sprite considered unavailable.
+  var PROXY = 'https://wsrv.nl/?output=png&url=';
+  function proxied(url) { return PROXY + encodeURIComponent(url); }
+  function srcCandidates(sp) {
+    var base = IMG + encodeURIComponent(sp.id);
+    var direct = [base + '.png', base + '.webp'];
+    if (sp.alt) {
+      // preferInGame: use the official in-game icon first (these sprites' hosted .png carries a paper backdrop)
+      if (sp.preferInGame) direct.unshift(sp.alt); else direct.push(sp.alt);
+    }
+    var out = direct.slice();
+    direct.forEach(function (u) { out.push(proxied(u)); });
+    // keep the in-game icon (direct, then proxied) ahead of everything else when preferred
+    if (sp.preferInGame && sp.alt) {
+      out = [sp.alt, proxied(sp.alt)].concat(out.filter(function (u) { return u !== sp.alt && u !== proxied(sp.alt); }));
+    }
+    return out;
+  }
+  function loadCors(url, timeoutMs) {
+    return new Promise(function (resolve, reject) {
+      var im = new Image(), done = false;
+      var tm = setTimeout(function () { fin(false); }, timeoutMs || 12000);
+      function fin(ok) {
+        if (done) return; done = true; clearTimeout(tm);
+        if (ok && im.naturalWidth > 1) resolve(im); else reject(new Error('load failed: ' + url));
+      }
+      im.crossOrigin = 'anonymous';
+      im.onload = function () { fin(true); };
+      im.onerror = function () { fin(false); };
+      im.src = url;
+    });
+  }
+  var pixelCache = {};
+  function fetchPixels(sp) {
+    if (pixelCache[sp.id]) return pixelCache[sp.id];
+    var cands = srcCandidates(sp), i = 0;
+    function next() {
+      if (i >= cands.length) return Promise.reject(new Error('no readable source for ' + sp.id));
+      var u = cands[i++];
+      return loadCors(u).catch(next);
+    }
+    var pr = next();
+    pr.catch(function () { delete pixelCache[sp.id]; });   // allow a later retry
+    pixelCache[sp.id] = pr;
+    return pr;
+  }
+
+  // Remove a paper / flat / gradient backdrop that surrounds the sprite.
+  // Works from the image border inward, so anything enclosed by the sprite's own outline
+  // (eyes, highlights, white details) is never touched.
+  function removeBackground(im) {
+    var w = im.naturalWidth, h = im.naturalHeight, N = w * h;
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    var x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(im, 0, 0);
+    var data = x.getImageData(0, 0, w, h);   // throws if the canvas is tainted
+    var d = data.data;
+    var xx, yy, i, idx;
+
+    // 1. Border statistics -> backdrop colour model
+    var band = Math.max(2, Math.round(Math.min(w, h) * 0.01));
+    var transp = 0, cnt = 0, R = [], G = [], B = [];
+    for (yy = 0; yy < h; yy++) for (xx = 0; xx < w; xx++) {
+      if (xx >= band && xx < w - band && yy >= band && yy < h - band) { xx = w - band - 1; continue; }
+      i = (yy * w + xx) * 4; cnt++;
+      if (d[i + 3] < 16) { transp++; continue; }
+      R.push(d[i]); G.push(d[i + 1]); B.push(d[i + 2]);
+    }
+    if (transp > cnt * 0.5) return null;            // already transparent around the edge
+    function med(a) { a.sort(function (p, q) { return p - q; }); return a[a.length >> 1]; }
+    var bgR = med(R), bgG = med(G), bgB = med(B);
+    var devs = [];
+    for (i = 0; i < R.length; i++) devs.push(Math.max(Math.abs(R[i] - bgR), Math.abs(G[i] - bgG), Math.abs(B[i] - bgB)));
+    devs.sort(function (p, q) { return p - q; });
+    var p90 = devs[Math.floor(devs.length * 0.9)] || 0;
+    var TOL = Math.max(22, Math.min(46, Math.round(p90 * 1.3 + 8)));
+    var SOFT = TOL + 40;
+    var bgMin = Math.min(bgR, bgG, bgB), bgMax = Math.max(bgR, bgG, bgB);
+    var paperMode = bgMin > 150 && (bgMax - bgMin) < 70;   // light, low-saturation backdrop (paper)
+
+    function dist(o) { return Math.max(Math.abs(d[o] - bgR), Math.abs(d[o + 1] - bgG), Math.abs(d[o + 2] - bgB)); }
+    // paper creases, grain and soft shadows are darker greys with no real colour in them
+    function isBg(o) {
+      if (d[o + 3] < 16) return true;
+      if (dist(o) <= TOL) return true;
+      if (paperMode) {
+        var mn = Math.min(d[o], d[o + 1], d[o + 2]), mx = Math.max(d[o], d[o + 1], d[o + 2]);
+        return mn >= Math.max(110, bgMin - 75) && (mx - mn) <= 40;
+      }
+      return false;
+    }
+
+    // 2. Flood fill from the border
+    var seen = new Uint8Array(N), stack = new Int32Array(N + 4 * (w + h) + 16), sp = 0;
+    function push(px, py) {
+      if (px < 0 || py < 0 || px >= w || py >= h) return;
+      var k = py * w + px;
+      if (seen[k] || !isBg(k * 4)) return;
+      seen[k] = 1; stack[sp++] = k;
+    }
+    function run() {
+      while (sp) {
+        var k = stack[--sp], px = k % w, py = (k - px) / w;
+        d[k * 4 + 3] = 0;
+        push(px + 1, py); push(px - 1, py); push(px, py + 1); push(px, py - 1);
+      }
+    }
+    for (xx = 0; xx < w; xx++) { push(xx, 0); push(xx, h - 1); }
+    for (yy = 0; yy < h; yy++) { push(0, yy); push(w - 1, yy); }
+    run();
+
+    // 3. Non-flat backdrop (vignette / gradient): if opaque border pixels remain, creep across
+    //    pixels almost identical to the neighbour they are reached from.
+    var left = 0, tot = 0;
+    for (xx = 0; xx < w; xx++) { tot += 2; if (!seen[xx]) left++; if (!seen[(h - 1) * w + xx]) left++; }
+    for (yy = 0; yy < h; yy++) { tot += 2; if (!seen[yy * w]) left++; if (!seen[yy * w + w - 1]) left++; }
+    if (left / tot > 0.05) {
+      var STEP = 6, LOOSE = 100;
+      var grow = function (from, tx, ty) {
+        if (tx < 0 || ty < 0 || tx >= w || ty >= h) return;
+        var t = ty * w + tx; if (seen[t]) return;
+        var A = from * 4, Bo = t * 4;
+        var step = Math.max(Math.abs(d[A] - d[Bo]), Math.abs(d[A + 1] - d[Bo + 1]), Math.abs(d[A + 2] - d[Bo + 2]));
+        if (d[Bo + 3] !== 0 && (step > STEP || dist(Bo) > LOOSE)) return;
+        seen[t] = 1; stack[sp++] = t;
+      };
+      for (xx = 0; xx < w; xx++) [xx, (h - 1) * w + xx].forEach(function (k) { if (!seen[k] && dist(k * 4) <= LOOSE) { seen[k] = 1; stack[sp++] = k; } });
+      for (yy = 0; yy < h; yy++) [yy * w, yy * w + w - 1].forEach(function (k) { if (!seen[k] && dist(k * 4) <= LOOSE) { seen[k] = 1; stack[sp++] = k; } });
+      for (idx = 0; idx < N; idx++) if (seen[idx] && ((idx % w) === 0 || (idx % w) === w - 1 || idx < w || idx >= N - w)) stack[sp++] = idx;
+      while (sp) {
+        var k2 = stack[--sp], gx = k2 % w, gy = (k2 - gx) / w;
+        d[k2 * 4 + 3] = 0;
+        grow(k2, gx + 1, gy); grow(k2, gx - 1, gy); grow(k2, gx, gy + 1); grow(k2, gx, gy - 1);
+      }
+    }
+
+    // 4. Soften the fringe: remaining pixels touching the removed area that still resemble the backdrop
+    var fringe = [];
+    for (yy = 1; yy < h - 1; yy++) for (xx = 1; xx < w - 1; xx++) {
+      idx = yy * w + xx;
+      if (seen[idx]) continue;
+      if (seen[idx - 1] || seen[idx + 1] || seen[idx - w] || seen[idx + w]) fringe.push(idx);
+    }
+    fringe.forEach(function (k) {
+      var dd = dist(k * 4);
+      if (dd < SOFT) d[k * 4 + 3] = Math.round(d[k * 4 + 3] * Math.max(0, (dd - TOL * 0.6) / (SOFT - TOL * 0.6)));
+    });
+
+    // 5. Drop tiny leftover paper specks (small, backdrop-coloured islands) - never real artwork
+    var comp = new Int32Array(N), nComp = 0, areas = [0], means = [null];
+    for (idx = 0; idx < N; idx++) {
+      if (seen[idx] || comp[idx] || d[idx * 4 + 3] === 0) continue;
+      nComp++; var area = 0, sr = 0, sg = 0, sb = 0, q = [idx]; comp[idx] = nComp;
+      while (q.length) {
+        var k3 = q.pop(); area++; sr += d[k3 * 4]; sg += d[k3 * 4 + 1]; sb += d[k3 * 4 + 2];
+        var qx = k3 % w, qy = (k3 - qx) / w, nb = [[qx + 1, qy], [qx - 1, qy], [qx, qy + 1], [qx, qy - 1]];
+        for (var n = 0; n < 4; n++) {
+          var nx = nb[n][0], ny = nb[n][1]; if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+          var nk = ny * w + nx; if (seen[nk] || comp[nk] || d[nk * 4 + 3] === 0) continue;
+          comp[nk] = nComp; q.push(nk);
+        }
+      }
+      areas.push(area); means.push([sr / area, sg / area, sb / area]);
+    }
+    var maxArea = Math.max.apply(null, areas.concat([1]));
+    for (idx = 0; idx < N; idx++) {
+      var cc = comp[idx]; if (!cc) continue;
+      var m = means[cc], mn2 = Math.min(m[0], m[1], m[2]), mx2 = Math.max(m[0], m[1], m[2]);
+      if (areas[cc] < Math.max(30, N * 0.0015) && areas[cc] < maxArea * 0.02 && mn2 > 110 && (mx2 - mn2) < 50) d[idx * 4 + 3] = 0;
+    }
+    x.putImageData(data, 0, 0);
+
+    // 6. If the sprite occupies only a small part of the picture (large paper margin), crop to it
+    //    and re-centre it with an even margin so it matches the size of the other icons.
+    var x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (yy = 0; yy < h; yy++) for (xx = 0; xx < w; xx++) {
+      if (d[(yy * w + xx) * 4 + 3] > 24) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (yy < y0) y0 = yy; if (yy > y1) y1 = yy; }
+    }
+    if (x1 < 0) return null;                              // nothing left: do not destroy the image
+    var bw = x1 - x0 + 1, bh = y1 - y0 + 1, side = Math.max(bw, bh);
+    if (side / Math.max(w, h) < 0.72) {
+      var margin = Math.round(side * 0.1), S = side + margin * 2;
+      var oc = document.createElement('canvas'); oc.width = S; oc.height = S;
+      var ox = oc.getContext('2d');
+      ox.imageSmoothingQuality = 'high';
+      ox.drawImage(c, x0, y0, bw, bh, Math.round((S - bw) / 2), Math.round((S - bh) / 2), bw, bh);
+      return oc.toDataURL('image/png');
+    }
+    return c.toDataURL('image/png');
+  }
+
+  function toDataUrl(im) {
+    var c = document.createElement('canvas');
+    c.width = im.naturalWidth; c.height = im.naturalHeight;
+    c.getContext('2d').drawImage(im, 0, 0);
+    return c.toDataURL('image/png');
+  }
+
+  function cleanBackgrounds() {
+    sprites.forEach(function (sp) {
+      if (CLEAN_IDS.indexOf(sp.id) === -1) return;
+      var orig = sp.image, inGame = sp.alt;
+      sp.preferInGame = true;      // official in-game icon is the reference artwork
+      sp.image = BLANK;            // never flash a backdrop
+      sp.bgPending = true;
+      function finish(url, failed) {
+        sp.bgPending = false;
+        if (url) sp.image = url;
+        else if (failed && inGame) { sp.image = inGame; sp.alt = orig; }   // show the in-game icon directly
+        else sp.image = orig;
+        refreshViews();
+      }
+      fetchPixels(sp)
+        .then(function (im) {
+          var out = null;
+          try { out = removeBackground(im) || toDataUrl(im); }
+          catch (e) { console.warn('bg removal failed for', sp.id, e); }
+          finish(out, !out);
+        })
+        .catch(function () { finish(null, true); });
+    });
+  }
+
+  function waitForCleanup() {
+    var pend = sprites.filter(function (x) { return x.bgPending; });
+    if (!pend.length) return Promise.resolve();
+    return new Promise(function (res) {
+      var t0 = Date.now();
+      (function poll() {
+        if (!sprites.some(function (x) { return x.bgPending; }) || Date.now() - t0 > 30000) res(); else setTimeout(poll, 100);
+      })();
+    });
+  }
+
+  function refreshViews() {
+    if (!$('spriteGrid')) return;
+    renderGrid();
+    if (!$('page-collection').hidden) renderColl();
+    if (!$('page-variants').hidden) renderVariants();
+    if (!$('modal').hidden) { var di = $('modalBody').querySelector('[data-id]'); if (di) openModal(di.getAttribute('data-id')); }
+    if (!$('page-trade').hidden) renderTrades();
+    ['tradeOffer', 'tradeWant'].forEach(function (sid) {
+      var a = sid === 'tradeOffer' ? 'offerArt' : 'wantArt';
+      if ($(sid) && $(sid).value && typeof updateTradePreviewGlobal === 'function') updateTradePreviewGlobal(sid, a);
+    });
+  }
+
+  function load() {
+    try {
+      var c = JSON.parse(localStorage.getItem(COL_KEY) || '{}');
+      owned = c.owned || {};
+      mastered = c.mastered || {};
+    } catch (e) {}
+    try { trades = JSON.parse(localStorage.getItem(TRADE_KEY) || '[]'); if (!Array.isArray(trades)) trades = []; } catch (e) { trades = []; }
+    try {
+      var s = JSON.parse(localStorage.getItem(SET_KEY) || '{}');
+      if (s.theme) document.body.setAttribute('data-theme', s.theme);
+      if (s.grid) document.body.setAttribute('data-grid', s.grid);
+    } catch (e) {}
+  }
+  function saveCol() { localStorage.setItem(COL_KEY, JSON.stringify({ owned: owned, mastered: mastered })); }
+  function saveTrades() { localStorage.setItem(TRADE_KEY, JSON.stringify(trades)); }
+  function saveSet() {
+    localStorage.setItem(SET_KEY, JSON.stringify({
+      theme: document.body.getAttribute('data-theme') || 'dark',
+      grid: document.body.getAttribute('data-grid') || 'comfortable'
+    }));
+  }
+
+  function isOwned(id) { return !!owned[id]; }
+  function isMastered(id) { return !!mastered[id]; }
+
+  function toggleOwn(id) {
+    if (owned[id]) delete owned[id]; else owned[id] = true;
+    saveCol(); updateStats(); apply(); renderColl();
+  }
+  function toggleMaster(id) {
+    if (mastered[id]) delete mastered[id];
+    else { mastered[id] = true; owned[id] = true; }
+    saveCol(); updateStats(); apply(); renderColl();
+  }
+
+  function updateStats() {
+    var total = sprites.length;
+    var o = 0, m = 0, i;
+    for (i = 0; i < sprites.length; i++) {
+      if (owned[sprites[i].id]) o++;
+      if (mastered[sprites[i].id]) m++;
+    }
+    var pct = total ? Math.round(o / total * 100) : 0;
+    function set(id, v) { var el = $(id); if (el) el.textContent = v; }
+    set('statTotal', total); set('statOwned', o); set('statMastered', m); set('statProgress', pct + '%');
+    set('dashTotal', total); set('dashOwned', o); set('dashMastered', m); set('dashProgress', pct + '%');
+    set('cTotal', total); set('cOwned', o); set('cMastered', m); set('cRemain', total - o); set('cProgress', pct + '%');
+    set('ringPct', pct + '%');
+    var ring = $('ringFill'); if (ring) ring.setAttribute('stroke-dasharray', pct + ',100');
+    var bar = $('barFill'); if (bar) bar.style.width = pct + '%';
+  }
+
+  function unique(field) {
+    var map = {}, arr = [], i, v;
+    for (i = 0; i < sprites.length; i++) {
+      v = sprites[i][field];
+      if (!map[v]) { map[v] = 1; arr.push(v); }
+    }
+    arr.sort();
+    return arr;
+  }
+
+  function buildFilters() {
+    var vars = ordered('variant', VARIANT_ORDER);
+    var rars = ordered('rarity', RARITY_ORDER);
+    var seasons = unique('season');
+    var html = '<button type="button" class="chip active" data-v="all">All</button>';
+    var i;
+    for (i = 0; i < vars.length; i++) html += '<button type="button" class="chip" data-v="' + vars[i] + '">' + vars[i] + '</button>';
+    $('chipVariant').innerHTML = html;
+    html = '<button type="button" class="chip active" data-v="all">All</button>';
+    for (i = 0; i < rars.length; i++) html += '<button type="button" class="chip" data-v="' + rars[i] + '">' + rars[i] + '</button>';
+    $('chipRarity').innerHTML = html;
+    html = '<option value="all">All Seasons</option>';
+    for (i = 0; i < seasons.length; i++) html += '<option value="' + seasons[i] + '">' + seasons[i] + '</option>';
+    $('filterSeason').innerHTML = html;
+  }
+
+  function apply() {
+    var list = sprites.slice();
+    var q = filters.search.trim().toLowerCase();
+    var i, s;
+    if (q) {
+      list = list.filter(function (x) {
+        return x.name.toLowerCase().indexOf(q) !== -1 || x.id.toLowerCase().indexOf(q) !== -1;
+      });
+    }
+    if (filters.variant !== 'all') { var fv = norm(filters.variant); list = list.filter(function (x) { return norm(x.variant) === fv; }); }
+    if (filters.rarity !== 'all') { var fr = norm(filters.rarity); list = list.filter(function (x) { return norm(x.rarity) === fr; }); }
+    if (filters.season !== 'all') list = list.filter(function (x) { return x.season === filters.season; });
+    if (filters.status === 'owned') list = list.filter(function (x) { return isOwned(x.id); });
+    if (filters.status === 'not-owned') list = list.filter(function (x) { return !isOwned(x.id); });
+    if (filters.status === 'mastered') list = list.filter(function (x) { return isMastered(x.id); });
+    if (filters.status === 'not-mastered') list = list.filter(function (x) { return !isMastered(x.id); });
+    if (filters.status === 'unreleased') list = list.filter(function (x) { return x.unreleased; });
+
+    var order = { Common:1, Uncommon:2, Rare:3, Epic:4, Legendary:5, Mythic:6, Special:7 };
+    if (filters.sort === 'default') list.sort(byRarity);
+    if (filters.sort === 'name-asc') list.sort(function (a,b) { return a.name.localeCompare(b.name); });
+    if (filters.sort === 'name-desc') list.sort(function (a,b) { return b.name.localeCompare(a.name); });
+    if (filters.sort === 'newest') list.sort(function (a,b) { return b.idx - a.idx; });
+    if (filters.sort === 'oldest') list.sort(function (a,b) { return a.idx - b.idx; });
+    if (filters.sort === 'rarity') list.sort(function (a,b) { return (order[b.rarity]||0) - (order[a.rarity]||0); });
+    if (filters.sort === 'id') list.sort(function (a,b) { return a.id.localeCompare(b.id); });
+
+    filtered = list;
+    page = 0;
+    renderGrid();
+    $('resultsCount').textContent = list.length ? list.length + ' sprite' + (list.length === 1 ? '' : 's') : 'No sprites found';
+  }
+
+  function cardHTML(s) {
+    var o = isOwned(s.id), m = isMastered(s.id);
+    var rc = (s.rarity || '').toLowerCase();
+    var initials = initialsOf(s.name);
+    return '<article class="card' + (o ? ' owned' : '') + (m ? ' mastered' : '') + '" data-id="' + s.id + '">' +
+      '<div class="card-img">' +
+        '<img src="' + s.image + '" data-alt="' + s.alt + '" alt="' + s.name + '" loading="lazy" onerror="svImgErr(this)" />' +
+        '<div class="card-ph" style="display:none">' + initials + '</div>' +
+        '<div class="badges"><span class="badge b-var">' + s.variant + '</span><span class="badge b-rar ' + rc + '">' + s.rarity + '</span></div>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-name">' + fmtName(s.name) + '</div>' +
+        '<div class="card-meta">' + s.season + (s.unreleased ? ' · <span style="color:var(--warn)">Unreleased</span>' : '') + '</div>' +
+        '<div class="card-id">' + s.id + '</div>' +
+        '<div class="card-acts">' +
+          '<button type="button" class="btn-own' + (o ? ' on' : '') + '" data-act="own" data-id="' + s.id + '">' + (o ? '♥ Owned' : '♡ Own') + '</button>' +
+          '<button type="button" class="btn-master' + (m ? ' on' : '') + '" data-act="master" data-id="' + s.id + '">' + (m ? '★ Mastered' : '☆ Master') + '</button>' +
+        '</div>' +
+      '</div></article>';
+  }
+
+  function renderGrid() {
+    var end = (page + 1) * PAGE;
+    var slice = filtered.slice(0, end);
+    var html = '', i;
+    for (i = 0; i < slice.length; i++) html += cardHTML(slice[i]);
+    if (!slice.length) html = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--muted);font-weight:600">No sprites found. Try a different filter combination.</div>';
+    $('spriteGrid').innerHTML = html;
+    $('moreWrap').hidden = end >= filtered.length;
+  }
+
+  function renderColl() {
+    var chip = document.querySelector('#collChips .chip.active');
+    var mode = chip ? chip.getAttribute('data-v') : 'all';
+    var list = sprites.slice();
+    if (mode === 'owned') list = list.filter(function (x) { return isOwned(x.id); });
+    if (mode === 'missing') list = list.filter(function (x) { return !isOwned(x.id); });
+    if (mode === 'mastered') list = list.filter(function (x) { return isMastered(x.id); });
+    if (mode === 'unmastered') list = list.filter(function (x) { return isOwned(x.id) && !isMastered(x.id); });
+    list.sort(byRarity);   // same order as the Sprites page
+    var html = '', i;
+    for (i = 0; i < list.length; i++) html += cardHTML(list[i]);
+    $('collGrid').innerHTML = html;
+  }
+
+  function renderVariants() {
+    var groups = {}, i, s, v, html = '', keys, k, j;
+    for (i = 0; i < sprites.length; i++) {
+      s = sprites[i]; v = s.variant;
+      if (!groups[v]) groups[v] = [];
+      groups[v].push(s);
+    }
+    keys = Object.keys(groups).sort(function (a, b) {
+      var ia = VARIANT_ORDER.indexOf(a), ib = VARIANT_ORDER.indexOf(b);
+      if (ia < 0) ia = 99; if (ib < 0) ib = 99;
+      return (ia - ib) || (a < b ? -1 : 1);
+    });
+    for (i = 0; i < keys.length; i++) {
+      k = keys[i];
+      groups[k].sort(byRarity);   // Rare, Epic, Legendary, Mythic (unreleased last)
+      html += '<div class="variant-group"><h3>' + k + ' (' + groups[k].length + ')</h3><div class="grid">';
+      for (j = 0; j < groups[k].length; j++) html += cardHTML(groups[k][j]);
+      html += '</div></div>';
+    }
+    $('variantsContent').innerHTML = html;
+  }
+
+
+  function exportCollectionImage() {
+    var total = sprites.length;
+    var o = 0, m = 0, i, s;
+    for (i = 0; i < sprites.length; i++) {
+      s = sprites[i];
+      if (mastered[s.id]) { m++; o++; } else if (owned[s.id]) o++;
+    }
+    var pct = total ? Math.round(o / total * 100) : 0;
+
+    // Export exactly what the Collection tab is showing (All / Owned / Missing / ...)
+    var chip = document.querySelector('#collChips .chip.active');
+    var mode = chip ? chip.getAttribute('data-v') : 'all';
+    var modeLabel = chip ? chip.textContent.trim() : 'All';
+    var list = sprites.slice();
+    if (mode === 'owned') list = list.filter(function (x) { return isOwned(x.id); });
+    if (mode === 'missing') list = list.filter(function (x) { return !isOwned(x.id); });
+    if (mode === 'mastered') list = list.filter(function (x) { return isMastered(x.id); });
+    if (mode === 'unmastered') list = list.filter(function (x) { return isOwned(x.id) && !isMastered(x.id); });
+    list.sort(byRarity);   // same order as the Sprites page
+
+    var FONT = 'Inter, system-ui, -apple-system, Segoe UI, sans-serif';
+    var pad = 40, gap = 16, cardW = 210, imgBox = 150, nameSize = 16, lineH = 21, headerH = 196, footerH = 56;
+
+    function roundRect(c, x, y, rw, rh, r) {
+      c.beginPath();
+      c.moveTo(x + r, y);
+      c.arcTo(x + rw, y, x + rw, y + rh, r);
+      c.arcTo(x + rw, y + rh, x, y + rh, r);
+      c.arcTo(x, y + rh, x, y, r);
+      c.arcTo(x, y, x + rw, y, r);
+      c.closePath();
+    }
+    // Word-wrap (and hard-break any single over-long word) so full names always fit
+    function wrap(c, text, maxW) {
+      var words = String(text).split(/\s+/), lines = [], cur = '', w, t, k;
+      for (w = 0; w < words.length; w++) {
+        t = cur ? cur + ' ' + words[w] : words[w];
+        if (c.measureText(t).width <= maxW) { cur = t; continue; }
+        if (cur) { lines.push(cur); cur = ''; }
+        if (c.measureText(words[w]).width <= maxW) { cur = words[w]; continue; }
+        var part = '';
+        for (k = 0; k < words[w].length; k++) {
+          if (c.measureText(part + words[w][k]).width > maxW) { lines.push(part); part = ''; }
+          part += words[w][k];
+        }
+        cur = part;
+      }
+      if (cur) lines.push(cur);
+      return lines.length ? lines : [''];
+    }
+
+    // Every sprite is resolved through fetchPixels(): direct sources first, then the CORS proxy.
+    // Cleaned (background-free) sprites are already data: URLs and load instantly.
+    function loadSprite(sp) {
+      if (sp.image && sp.image.indexOf('data:image/png') === 0) {
+        return loadCors(sp.image).catch(function () { return null; });
+      }
+      return fetchPixels(sp).catch(function () { return null; });
+    }
+    function runLimited(items, fn, limit) {
+      var out = new Array(items.length), next = 0;
+      function worker() {
+        if (next >= items.length) return Promise.resolve();
+        var i = next++;
+        return fn(items[i]).then(function (r) { out[i] = r; }).then(worker);
+      }
+      var workers = [];
+      for (var k = 0; k < Math.min(limit, items.length); k++) workers.push(worker());
+      return Promise.all(workers).then(function () { return out; });
+    }
+
+    var fontsReady = (document.fonts && document.fonts.load)
+      ? Promise.all(['500 14px Inter', '600 16px Inter', '700 11px Inter', '800 40px Inter'].map(function (f) { return document.fonts.load(f); })).catch(function () {})
+      : Promise.resolve();
+
+    return Promise.all([fontsReady, waitForCleanup().then(function () { return runLimited(list, loadSprite, 10); })]).then(function (res) {
+      var images = res[1];
+      var unavailable = [];
+      list.forEach(function (sp, ix) { if (!images[ix]) unavailable.push(sp.id); });
+      window.SV_LAST_EXPORT = { shown: list.length, unavailable: unavailable };
+      if (unavailable.length) console.warn('SpriteVaultFN export: no image source reachable for', unavailable);
+      var n = list.length;
+
+      // Layout: choose columns for a balanced, landscape-ish gallery
+      var cols = Math.max(1, Math.min(10, Math.round(Math.sqrt(n * 1.35))));
+      if (n && cols > n) cols = n;
+      var measure = document.createElement('canvas').getContext('2d');
+      measure.font = '700 ' + nameSize + 'px ' + FONT;
+      var maxLines = 1;
+      list.forEach(function (sp) { maxLines = Math.max(maxLines, wrap(measure, sp.name, cardW - 28).length); });
+      var cardH = 14 + imgBox + 10 + maxLines * lineH + 8 + 16 + 14;
+      var rows = Math.ceil(n / cols);
+      var gridW = cols * cardW + (cols - 1) * gap;
+      var w = Math.max(pad * 2 + gridW, 780);
+      var gridH = n ? rows * cardH + (rows - 1) * gap : 120;
+      var h = headerH + gridH + footerH;
+
+      var scale = (w * h * 4 <= 9e6) ? 2 : 1;
+      var canvas = document.createElement('canvas');
+      canvas.width = w * scale; canvas.height = h * scale;
+      var ctx = canvas.getContext('2d');
+      ctx.scale(scale, scale);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+
+      // Background
+      ctx.fillStyle = '#0a0c12'; ctx.fillRect(0, 0, w, h);
+      var grd = ctx.createLinearGradient(0, 0, 0, headerH + 80);
+      grd.addColorStop(0, 'rgba(167,139,250,0.22)'); grd.addColorStop(1, 'rgba(10,12,18,0)');
+      ctx.fillStyle = grd; ctx.fillRect(0, 0, w, headerH + 80);
+
+      // Header
+      ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+      ctx.fillStyle = '#c4b5fd'; ctx.font = '800 40px ' + FONT; ctx.fillText('SPRITEVAULTFN', pad, 30 + 40);
+      ctx.fillStyle = '#e8eaf0'; ctx.font = '600 20px ' + FONT;
+      ctx.fillText('My Collection' + (mode !== 'all' ? '  ·  ' + modeLabel : ''), pad, 112);
+      ctx.fillStyle = '#8b92a8'; ctx.font = '500 15px ' + FONT;
+      ctx.fillText(o + ' / ' + total + ' owned  ·  ' + m + ' mastered  ·  ' + pct + '% complete', pad, 138);
+      var barW = w - pad * 2;
+      ctx.fillStyle = '#1a1e2e'; roundRect(ctx, pad, 152, barW, 10, 5); ctx.fill();
+      if (pct > 0) { ctx.fillStyle = '#a78bfa'; roundRect(ctx, pad, 152, Math.max(10, barW * pct / 100), 10, 5); ctx.fill(); }
+      ctx.font = '600 12px ' + FONT;
+      var lx = pad;
+      [['#34d399', 'Owned', 74], ['#fbbf24', 'Mastered', 94], ['#3a4058', 'Missing', 0]].forEach(function (L) {
+        ctx.fillStyle = L[0]; roundRect(ctx, lx, 174, 12, 12, 3); ctx.fill();
+        ctx.fillStyle = '#8b92a8'; ctx.fillText(L[1], lx + 18, 184); lx += L[2];
+      });
+      ctx.textAlign = 'right'; ctx.fillStyle = '#8b92a8'; ctx.font = '500 13px ' + FONT;
+      ctx.fillText(n + ' sprite' + (n === 1 ? '' : 's') + ' shown', w - pad, 184);
+      ctx.textAlign = 'left';
+
+      // Cards
+      var gx0 = (w - gridW) / 2;
+      if (!n) {
+        ctx.fillStyle = '#8b92a8'; ctx.font = '600 18px ' + FONT; ctx.textAlign = 'center';
+        ctx.fillText('No sprites in this view yet.', w / 2, headerH + 60); ctx.textAlign = 'left';
+      }
+      list.forEach(function (sp, idx) {
+        var col = idx % cols, row = Math.floor(idx / cols);
+        var inRow = (row === rows - 1) ? (n - row * cols) : cols;       // centre an incomplete last row
+        var rowW = inRow * cardW + (inRow - 1) * gap;
+        var x = (w - rowW) / 2 + col * (cardW + gap);
+        var y = headerH + row * (cardH + gap);
+        var isM = !!mastered[sp.id], isO = !!owned[sp.id] || isM;
+        var accent = isM ? '#fbbf24' : isO ? '#34d399' : '#3a4058';
+
+        // card
+        var cg = ctx.createLinearGradient(0, y, 0, y + cardH);
+        cg.addColorStop(0, '#171b2b'); cg.addColorStop(1, '#0e111b');
+        ctx.fillStyle = cg; roundRect(ctx, x, y, cardW, cardH, 16); ctx.fill();
+        ctx.strokeStyle = isM ? 'rgba(251,191,36,0.75)' : isO ? 'rgba(52,211,153,0.65)' : 'rgba(167,139,250,0.18)';
+        ctx.lineWidth = 2; roundRect(ctx, x + 1, y + 1, cardW - 2, cardH - 2, 15); ctx.stroke();
+
+        // image panel + sprite (aspect-ratio preserved, centred)
+        var px = x + (cardW - imgBox) / 2, py = y + 14;
+        var rg = ctx.createRadialGradient(px + imgBox / 2, py + imgBox * 0.45, 4, px + imgBox / 2, py + imgBox / 2, imgBox * 0.7);
+        rg.addColorStop(0, 'rgba(167,139,250,0.16)'); rg.addColorStop(1, 'rgba(167,139,250,0)');
+        ctx.fillStyle = rg; roundRect(ctx, px, py, imgBox, imgBox, 12); ctx.fill();
+        var im = images[idx];
+        if (im) {
+          var sc = Math.min(imgBox / im.naturalWidth, imgBox / im.naturalHeight);
+          var dw = im.naturalWidth * sc, dh = im.naturalHeight * sc;
+          try { ctx.drawImage(im, px + (imgBox - dw) / 2, py + (imgBox - dh) / 2, dw, dh); } catch (e) { im = null; }
+        }
+        if (!im) {   // consistent fallback: monogram badge
+          ctx.fillStyle = 'rgba(167,139,250,0.14)';
+          ctx.beginPath(); ctx.arc(px + imgBox / 2, py + imgBox / 2, imgBox * 0.32, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = 'rgba(196,181,253,0.8)'; ctx.font = '800 38px ' + FONT;
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText(initialsOf(sp.name), px + imgBox / 2, py + imgBox / 2 + 2);
+          ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+        }
+
+        // name (wrapped, fully visible)
+        ctx.fillStyle = '#f0f2f8'; ctx.font = '700 ' + nameSize + 'px ' + FONT; ctx.textAlign = 'center';
+        var lines = wrap(ctx, sp.name, cardW - 28);
+        var ny = py + imgBox + 10 + 16;
+        lines.forEach(function (ln, li) { ctx.fillText(ln, x + cardW / 2, ny + li * lineH); });
+
+        // status
+        ctx.fillStyle = accent; ctx.font = '700 11px ' + FONT;
+        ctx.fillText(isM ? 'MASTERED' : isO ? 'OWNED' : 'MISSING', x + cardW / 2, y + cardH - 14);
+        ctx.textAlign = 'left';
+      });
+
+      // Footer
+      ctx.fillStyle = '#5c6378'; ctx.font = '500 13px ' + FONT; ctx.textAlign = 'left';
+      ctx.fillText('SpriteVaultFN · Override', pad, h - 22);
+      ctx.fillStyle = '#a78bfa'; ctx.font = '600 13px ' + FONT; ctx.textAlign = 'right';
+      ctx.fillText('https://spritevaultfn.pages.dev', w - pad, h - 22);
+      ctx.textAlign = 'left';
+
+      // Download
+      try {
+        canvas.toBlob(function (blob) {
+          if (!blob) return;
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.download = 'spritevaultfn-collection.png'; a.href = url;
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        }, 'image/png');
+      } catch (err) {
+        var win = window.open();
+        if (win) win.document.write('<img src="' + canvas.toDataURL('image/png') + '" />');
+      }
+    });
+  }
+
+  // Plain-text export of whatever the Collection tab is currently showing,
+  // grouped by variant:  ✅ owned · ⭐ mastered · ❌ missing
+  function exportCollectionText() {
+    var total = sprites.length, o = 0, m = 0, i, s;
+    for (i = 0; i < sprites.length; i++) {
+      s = sprites[i];
+      if (mastered[s.id]) { m++; o++; } else if (owned[s.id]) o++;
+    }
+    var pct = total ? Math.round(o / total * 100) : 0;
+
+    var chip = document.querySelector('#collChips .chip.active');
+    var mode = chip ? chip.getAttribute('data-v') : 'all';
+    var modeLabel = chip ? chip.textContent.trim() : 'All';
+    var list = sprites.slice();
+    if (mode === 'owned') list = list.filter(function (x) { return isOwned(x.id); });
+    if (mode === 'missing') list = list.filter(function (x) { return !isOwned(x.id); });
+    if (mode === 'mastered') list = list.filter(function (x) { return isMastered(x.id); });
+    if (mode === 'unmastered') list = list.filter(function (x) { return isOwned(x.id) && !isMastered(x.id); });
+
+    var lines = [];
+    lines.push('SPRITEVAULTFN - My Collection' + (mode !== 'all' ? ' (' + modeLabel + ')' : ''));
+    lines.push('Override - Chapter 7 Season 4');
+    lines.push('');
+    lines.push('Progress: ' + o + '/' + total + ' owned (' + pct + '%)');
+    lines.push('Mastered: ' + m + '/' + total);
+    lines.push('Missing: ' + (total - o));
+
+    function addSection(title, group, all) {
+      if (!group.length) return;
+      group.sort(byRarity);   // same order as the Sprites page
+      var gOwned = all.filter(function (x) { return isOwned(x.id); }).length;
+      lines.push('');
+      lines.push('== ' + title + ' (' + gOwned + '/' + all.length + ') ==');
+      group.forEach(function (x) {
+        var mark = isMastered(x.id) ? '⭐' : isOwned(x.id) ? '✅' : '❌';
+        lines.push(mark + ' ' + baseName(x.name) + ' [' + x.rarity + ']' +
+          (isMastered(x.id) ? ' - Mastered' : ''));
+      });
+    }
+    VARIANT_ORDER.forEach(function (v) {
+      addSection(v,
+        list.filter(function (x) { return x.variant === v && !x.unreleased; }),
+        sprites.filter(function (x) { return x.variant === v && !x.unreleased; }));
+    });
+    // Unreleased sprites go last, after Trick or Treat
+    addSection('Unreleased',
+      list.filter(function (x) { return x.unreleased; }),
+      sprites.filter(function (x) { return x.unreleased; }));
+    if (!list.length) { lines.push(''); lines.push('No sprites in this view yet.'); }
+
+    lines.push('');
+    lines.push('✅ Owned   ⭐ Mastered   ❌ Missing');
+    lines.push('https://spritevaultfn.pages.dev');
+
+    return lines.join('\n') + '\n';
+  }
+
+  // Copy text to the clipboard (modern API first, then a legacy fallback that also works from file://)
+  function copyText(text) {
+    function legacy() {
+      return new Promise(function (resolve, reject) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        if (ok) resolve(); else reject(new Error('copy failed'));
+      });
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(legacy);
+    }
+    return legacy();
+  }
+
+  // Last resort if the clipboard is blocked: download the text as a .txt file
+  function downloadText(text) {
+    var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.download = 'spritevaultfn-collection.txt'; a.href = url;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+
+  function openModal(id) {
+    var s = null, i;
+    for (i = 0; i < sprites.length; i++) if (sprites[i].id === id) { s = sprites[i]; break; }
+    if (!s) return;
+    var ab = ability(s);
+    var o = isOwned(s.id), m = isMastered(s.id);
+    var levels = '', li;
+    for (li = 0; li < ab.levels.length; li++) {
+      levels += '<div class="lvl"><span>L' + (li + 1) + '</span><b>' + ab.levels[li] + '</b></div>';
+    }
+    var initials = initialsOf(s.name);
+    var vb = VARIANT_BONUS[s.variant];
+    $('modalBody').innerHTML =
+      '<div class="modal-img"><img src="' + s.image + '" data-alt="' + s.alt + '" alt="' + s.name + '" onerror="svImgErr(this)" /><div class="card-ph" style="display:none">' + initials + '</div></div>' +
+      '<h2>' + fmtName(s.name) + '</h2>' +
+      '<div class="modal-tags"><span class="badge b-var">' + s.variant + '</span><span class="badge b-rar ' + (s.rarity||'').toLowerCase() + '">' + s.rarity + '</span>' + (s.unreleased ? '<span class="badge" style="background:rgba(251,191,36,.25);color:var(--warn)">Unreleased</span>' : '') + '</div>' +
+      '<div class="modal-info"><div><b>Season:</b> ' + s.season + '</div><div><b>ID:</b> ' + s.id + '</div></div>' +
+      '<div class="ability"><h4>Power</h4><p>' + ab.text + '</p>' + (vb ? '<div class="vbonus"><b>' + s.variant + ' bonus</b>' + vb + '</div>' : '') + '<div class="levels">' + levels + '</div>' +
+      (ab.label ? '<div class="ability-label">' + ab.label + '</div>' : '') + '</div>' +
+      '<div class="modal-acts">' +
+        '<button type="button" class="btn-own' + (o ? ' on' : '') + '" data-act="own" data-id="' + s.id + '">' + (o ? '♥ Owned' : '♡ Own') + '</button>' +
+        '<button type="button" class="btn-master' + (m ? ' on' : '') + '" data-act="master" data-id="' + s.id + '">' + (m ? '★ Mastered' : '☆ Master') + '</button>' +
+      '</div>';
+    $('modal').hidden = false;
+  }
+  function closeModal() { $('modal').hidden = true; }
+
+  function showPage(name) {
+    var pages = ['sprites', 'collection', 'trade', 'variants', 'about'];
+    var i, el;
+    for (i = 0; i < pages.length; i++) {
+      el = $('page-' + pages[i]);
+      if (el) el.hidden = pages[i] !== name;
+    }
+    document.querySelectorAll('.nav-btn').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-page') === name);
+    });
+    $('mobileMenu').classList.remove('open');
+    if (name === 'collection') renderColl();
+    if (name === 'variants') renderVariants();
+    if (name === 'trade') { fillTradeSelects(); renderTrades(); }
+  }
+
+  function fillTradeSelects() {
+    var opts = '<option value="">Select…</option>', i, s;
+    var sorted = sprites.slice().sort(function (a,b) { return a.name.localeCompare(b.name); });
+    for (i = 0; i < sorted.length; i++) {
+      s = sorted[i];
+      opts += '<option value="' + s.id + '">' + s.name + ' (' + s.variant + ')</option>';
+    }
+    $('tradeOffer').innerHTML = opts;
+    $('tradeWant').innerHTML = opts;
+  }
+
+  function renderTrades() {
+    var list = $('tradeList');
+    var cnt = $('tradeCount');
+    if (cnt) cnt.textContent = String(trades.length);
+    if (!trades.length) {
+      list.innerHTML = '<p class="muted">No open trades yet. Post one above.</p>';
+      return;
+    }
+    var html = '', i, t, offer, want, oi, wi;
+    for (i = 0; i < trades.length; i++) {
+      t = trades[i];
+      offer = null; want = null;
+      for (oi = 0; oi < sprites.length; oi++) if (sprites[oi].id === t.offerId) offer = sprites[oi];
+      for (wi = 0; wi < sprites.length; wi++) if (sprites[wi].id === t.wantId) want = sprites[wi];
+      html += '<div class="trade-card">' +
+        '<div class="trade-top"><strong>' + escape(t.playerName) + '</strong><span>' + (t.date || '') + '</span></div>' +
+        '<div class="trade-swap">' +
+          '<div class="trade-side"><small>Offers</small>' + (offer ? '<img src="' + offer.image + '" data-alt="' + offer.alt + '" alt="" onerror="svImgErr(this)" />' : '') + '<div>' + escape(offer ? offer.name : t.offerId) + '</div></div>' +
+          '<div class="trade-arrow">⇄</div>' +
+          '<div class="trade-side"><small>Wants</small>' + (want ? '<img src="' + want.image + '" data-alt="' + want.alt + '" alt="" onerror="svImgErr(this)" />' : '') + '<div>' + escape(want ? want.name : t.wantId) + '</div></div>' +
+        '</div>' +
+        (t.note ? '<p class="trade-note">' + escape(t.note) + '</p>' : '') +
+        '<button type="button" class="trade-del" data-tid="' + t.id + '">Delete</button></div>';
+    }
+    list.innerHTML = html;
+  }
+
+
+  function escape(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function debounce(fn, ms) {
+    var t; return function () { var a = arguments, c = this; clearTimeout(t); t = setTimeout(function () { fn.apply(c, a); }, ms); };
+  }
+
+  function bind() {
+    document.querySelectorAll('.nav-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        showPage(btn.getAttribute('data-page'));
+      });
+    });
+    $('logo').addEventListener('click', function (e) { e.preventDefault(); showPage('sprites'); });
+    $('btnMenu').addEventListener('click', function () { $('mobileMenu').classList.toggle('open'); });
+    $('btnSettings').addEventListener('click', function () { $('settings').hidden = false; });
+    $('settingsClose').addEventListener('click', function () { $('settings').hidden = true; });
+    $('settings').addEventListener('click', function (e) { if (e.target === $('settings')) $('settings').hidden = true; });
+
+    $('heroSearchBtn').addEventListener('click', function () {
+      filters.search = $('heroSearch').value;
+      $('filterSearch').value = filters.search;
+      apply(); showPage('sprites');
+    });
+    $('heroSearch').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        filters.search = e.target.value;
+        $('filterSearch').value = filters.search;
+        apply(); showPage('sprites');
+      }
+    });
+    $('filterSearch').addEventListener('input', debounce(function (e) {
+      filters.search = e.target.value; apply();
+    }, 200));
+
+    function chipGroup(el, key) {
+      el.addEventListener('click', function (e) {
+        var b = e.target.closest('.chip'); if (!b) return;
+        el.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+        b.classList.add('active');
+        filters[key] = b.getAttribute('data-v');
+        apply();
+      });
+    }
+    chipGroup($('chipVariant'), 'variant');
+    chipGroup($('chipRarity'), 'rarity');
+    chipGroup($('chipStatus'), 'status');
+    $('filterSeason').addEventListener('change', function (e) { filters.season = e.target.value; apply(); });
+    $('filterSort').addEventListener('change', function (e) { filters.sort = e.target.value; apply(); });
+    $('clearFilters').addEventListener('click', function () {
+      filters = { search: '', variant: 'all', rarity: 'all', season: 'all', status: 'all', sort: 'default' };
+      $('filterSearch').value = ''; $('heroSearch').value = '';
+      $('filterSeason').value = 'all'; $('filterSort').value = 'default';
+      ['chipVariant','chipRarity','chipStatus'].forEach(function (id) {
+        $(id).querySelectorAll('.chip').forEach(function (c) {
+          c.classList.toggle('active', c.getAttribute('data-v') === 'all');
+        });
+      });
+      apply();
+    });
+    $('btnMore').addEventListener('click', function () { page++; renderGrid(); });
+    $('toggleFilters').addEventListener('click', function () { $('filters').classList.toggle('open'); });
+
+    document.addEventListener('click', function (e) {
+      var own = e.target.closest('[data-act="own"]');
+      if (own) { e.stopPropagation(); toggleOwn(own.getAttribute('data-id')); if (!$('modal').hidden) openModal(own.getAttribute('data-id')); return; }
+      var mas = e.target.closest('[data-act="master"]');
+      if (mas) { e.stopPropagation(); toggleMaster(mas.getAttribute('data-id')); if (!$('modal').hidden) openModal(mas.getAttribute('data-id')); return; }
+      var card = e.target.closest('.card');
+      if (card && !e.target.closest('.card-acts')) openModal(card.getAttribute('data-id'));
+      var del = e.target.closest('[data-tid]');
+      if (del) {
+        trades = trades.filter(function (t) { return t.id !== del.getAttribute('data-tid'); });
+        saveTrades(); renderTrades();
+      }
+    });
+
+    $('modalClose').addEventListener('click', closeModal);
+    $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeModal(); $('settings').hidden = true; } });
+
+    $('collChips').addEventListener('click', function (e) {
+      var b = e.target.closest('.chip'); if (!b) return;
+      $('collChips').querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+      b.classList.add('active'); renderColl();
+    });
+
+    function showTradeToast(msg, isErr) {
+      var t = $('tradeToast');
+      if (!t) return;
+      t.hidden = false;
+      t.textContent = msg;
+      t.className = 'trade-toast' + (isErr ? ' err' : '');
+      clearTimeout(showTradeToast._tm);
+      showTradeToast._tm = setTimeout(function () { t.hidden = true; }, 2800);
+    }
+    function updateTradePreview(selectId, artId) {
+      var sel = $(selectId);
+      var art = $(artId);
+      if (!sel || !art) return;
+      var id = sel.value;
+      var s = null, i;
+      for (i = 0; i < sprites.length; i++) if (sprites[i].id === id) { s = sprites[i]; break; }
+      if (s) {
+        art.innerHTML = '<img src="' + s.image + '" data-alt="' + s.alt + '" data-q="1" alt="" onerror="svImgErr(this)" />';
+      } else {
+        art.innerHTML = '<span>?</span>';
+      }
+    }
+
+
+    updateTradePreviewGlobal = updateTradePreview;
+    if ($('tradeOffer')) $('tradeOffer').addEventListener('change', function () { updateTradePreview('tradeOffer', 'offerArt'); });
+    if ($('tradeWant')) $('tradeWant').addEventListener('change', function () { updateTradePreview('tradeWant', 'wantArt'); });
+    $('tradeForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = $('tradeName').value.trim();
+      var offer = $('tradeOffer').value;
+      var want = $('tradeWant').value;
+      var note = $('tradeNote').value.trim();
+      if (!name) { showTradeToast('Enter your name', true); return; }
+      if (!offer || !want) { showTradeToast('Select both sprites', true); return; }
+      if (offer === want) { showTradeToast('Offer and want must be different', true); return; }
+      trades.unshift({
+        id: 't' + Date.now(),
+        playerName: name,
+        offerId: offer,
+        wantId: want,
+        note: note,
+        date: new Date().toLocaleString()
+      });
+      saveTrades();
+      $('tradeForm').reset();
+      updateTradePreview('tradeOffer', 'offerArt');
+      updateTradePreview('tradeWant', 'wantArt');
+      renderTrades();
+      showTradeToast('Trade posted');
+    });
+
+    function setChip(group, attr) {
+      $(group).addEventListener('click', function (e) {
+        var b = e.target.closest('.chip'); if (!b) return;
+        $(group).querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+        b.classList.add('active');
+        document.body.setAttribute(attr, b.getAttribute('data-v'));
+        saveSet();
+      });
+    }
+    setChip('setTheme', 'data-theme');
+    setChip('setGrid', 'data-grid');
+    if ($('btnExportImg')) {
+      $('btnExportImg').addEventListener('click', function () {
+        var btn = $('btnExportImg');
+        var old = btn.textContent;
+        btn.textContent = 'Saving…';
+        btn.disabled = true;
+        setTimeout(function () {
+          var restore = function () { btn.textContent = old; btn.disabled = false; };
+          try { Promise.resolve(exportCollectionImage()).catch(function (e) { console.error(e); }).then(restore); }
+          catch (e) { console.error(e); restore(); }
+        }, 50);
+      });
+    }
+    if ($('btnExportTxt')) {
+      $('btnExportTxt').addEventListener('click', function () {
+        var btn = $('btnExportTxt');
+        var old = 'Save as text';
+        var text = exportCollectionText();
+        function flash(msg) {
+          btn.textContent = msg;
+          clearTimeout(btn._tm);
+          btn._tm = setTimeout(function () { btn.textContent = old; }, 2000);
+        }
+        copyText(text).then(function () { flash('Copied!'); }).catch(function () {
+          downloadText(text);
+          flash('Saved as file');
+        });
+      });
+    }
+    $('btnReset').addEventListener('click', function () {
+      if (confirm('Reset your entire collection?')) {
+        owned = {}; mastered = {}; saveCol(); updateStats(); apply(); renderColl();
+        $('settings').hidden = true;
+      }
+    });
+  }
+
+  function init() {
+    load();
+    // Variant sprites (Gold, Cheat Master, ...) are stored with rarity 'Special' in the raw data,
+    // so Variant + Rarity combinations could never match. A variant keeps the rarity of its
+    // base sprite (same family), so derive it from the matching "<family>_basic" entry.
+    var baseRarity = {};
+    RAW.forEach(function (r) {
+      if (norm(r.variant) === 'base') baseRarity[family(r.id)] = String(r.rarity).trim();
+    });
+    sprites = RAW.map(function (r, i) {
+      var rar = String(r.rarity || '').trim();
+      if (norm(r.variant) !== 'base' && baseRarity[family(r.id)]) rar = baseRarity[family(r.id)];
+      return {
+        id: r.id, name: r.name, variant: String(r.variant).trim(), rarity: rar, season: r.season,
+        unreleased: !!r.unreleased, image: imgUrl(r.id), alt: altUrl(r.id), idx: i
+      };
+    });
+    cleanBackgrounds();
+    buildFilters();
+    apply();
+    updateStats();
+    bind();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
+</body>
+</html>
