@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SpriteVaultFN — Fortnite Sprite Collection</title>
+  <meta name="description" content="SpriteVaultFN is a free Fortnite sprite collection tracker: browse every sprite, mark the ones you own and have mastered, post trades, and export your collection as an image or text." />
+  <meta name="theme-color" content="#06070d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306070d'/%3E%3Cpath d='M16 4l9 12-9 12-9-12z' fill='%23a78bfa'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -28,12 +31,6 @@
   --font: Inter, system-ui, sans-serif;
   --glow: 0 0 40px rgba(167, 139, 250, 0.25);
   --glow-cyan: 0 0 30px rgba(34, 211, 238, 0.2);
-}
-[data-theme="amoled"] {
-  --bg: #000;
-  --panel: rgba(10, 10, 14, 0.85);
-  --panel-solid: #0a0a0e;
-  --elev: rgba(18, 18, 24, 0.95);
 }
 [data-theme="light"] {
   --bg: #eef0f7;
@@ -158,7 +155,8 @@ button { cursor: pointer; }
   50% { opacity: 1; transform: scale(1.08); }
 }
 .hero h1 {
-  font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 900; letter-spacing: 0.08em;
+  font-size: clamp(1.4rem, 7.8vw, 4rem); font-weight: 900; letter-spacing: 0.05em;
+  white-space: nowrap; padding: 0 0.1em;
   background: linear-gradient(135deg, #fff 10%, var(--accent2) 40%, var(--cyan) 70%, var(--pink) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -227,36 +225,12 @@ button { cursor: pointer; }
   background: linear-gradient(135deg, var(--accent2), var(--cyan));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
+.stats.stats-5 { grid-template-columns: repeat(5, 1fr); max-width: 760px; margin: 1.1rem auto 1rem; }
 .stat span {
   font-size: 0.68rem; color: var(--muted); text-transform: uppercase;
   letter-spacing: 0.08em; font-weight: 600;
 }
 
-.dash {
-  max-width: 1400px; margin: 0 auto; padding: 0 1.25rem 1.35rem;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem;
-}
-.dash > div {
-  background: rgba(16,18,28,0.65);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1rem 1.1rem;
-  backdrop-filter: blur(10px);
-  display: flex; flex-direction: column; gap: 0.2rem;
-  transition: all 0.25s;
-}
-.dash > div:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--glow);
-}
-.dash span {
-  font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; font-weight: 700;
-}
-.dash b {
-  font-size: 1.25rem;
-  background: linear-gradient(135deg, var(--accent2), var(--cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
 
 /* CATALOG */
 .catalog {
@@ -292,6 +266,13 @@ button { cursor: pointer; }
 .filters input:focus, .filters select:focus {
   border-color: var(--accent); box-shadow: 0 0 0 3px rgba(167,139,250,0.12);
 }
+.filters-actions { display: flex; align-items: center; gap: 0.75rem; }
+.filters-close {
+  display: none; width: 34px; height: 34px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--elev); color: var(--text);
+  font-size: 1.3rem; line-height: 1; align-items: center; justify-content: center;
+}
+.filters-close:hover { border-color: var(--accent); box-shadow: var(--glow); }
 .link-btn {
   background: none; border: none; color: var(--accent2); font-size: 0.8rem; font-weight: 600;
 }
@@ -801,21 +782,27 @@ button { cursor: pointer; }
 @media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(4, 1fr); }
   [data-grid="compact"] .grid { grid-template-columns: repeat(5, 1fr); }
+  [data-grid="comfortable"] .grid { grid-template-columns: repeat(4, 1fr); }
   [data-grid="large"] .grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 900px) {
   .catalog { grid-template-columns: 1fr; }
+  /* <main> must not form its own stacking layer, otherwise the slide-in filters panel stays stuck under the top bar */
+  body > main { z-index: auto; }
   .filters {
-    position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 70;
     width: min(300px, 85vw); transform: translateX(-110%); transition: 0.3s cubic-bezier(0.34,1.2,0.64,1);
     border-radius: 0; overflow-y: auto;
   }
   .filters.open { transform: translateX(0); box-shadow: 16px 0 48px rgba(0,0,0,0.5); }
   #toggleFilters { display: inline-flex; }
+  .filters-close { display: inline-flex; }
   .nav-links { display: none; }
   #btnMenu { display: flex; align-items: center; justify-content: center; }
-  .grid { grid-template-columns: repeat(3, 1fr); }
-  .stats, .dash { grid-template-columns: repeat(2, 1fr); }
+  .grid, [data-grid="comfortable"] .grid { grid-template-columns: repeat(3, 1fr); }
+  [data-grid="compact"] .grid { grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+  [data-grid="large"] .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
   .trade-hero-grid { grid-template-columns: 1fr; }
   .trade-vs { grid-template-columns: 1fr; }
   .trade-vs-mid { flex-direction: row; padding: 0.3rem 0; }
@@ -823,8 +810,17 @@ button { cursor: pointer; }
   .trade-arrow { transform: rotate(90deg); }
 }
 @media (max-width: 560px) {
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .grid, [data-grid="comfortable"] .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
   .hero-search { flex-direction: column; }
+}
+
+/* Collection stats: five tiles stay in one row on phones too */
+@media (max-width: 900px) { .stats.stats-5 { grid-template-columns: repeat(5, 1fr); gap: 0.4rem; } }
+@media (max-width: 560px) {
+  .stats.stats-5 { gap: 0.3rem; }
+  .stats.stats-5 .stat { padding: 0.65rem 0.15rem; border-radius: 11px; text-align: center; }
+  .stats.stats-5 .stat b { font-size: 1.05rem; }
+  .stats.stats-5 .stat span { font-size: 0.5rem; letter-spacing: 0.02em; }
 }
 
 /* Sprite roster additions — mobile overrides (must follow the existing media queries) */
@@ -835,7 +831,7 @@ button { cursor: pointer; }
   .card-acts .btn-own, .card-acts .btn-master { font-size: 0.62rem; padding: 0.4rem 0.15rem; white-space: nowrap; }
   /* density settings previously out-specified the mobile grid, leaving 4-6 tiny columns on phones */
   [data-grid="compact"] .grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-  [data-grid="large"] .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  [data-grid="large"] .grid { grid-template-columns: 1fr; gap: 0.9rem; }
   [data-grid="compact"] .card-name { font-size: 0.8rem; }
   [data-grid="compact"] .card-id { display: none; }
 }
@@ -886,7 +882,7 @@ button { cursor: pointer; }
         <p class="tagline">Explore the Fortnite Sprite Collection</p>
         <p class="sub">Discover, collect and master every sprite.</p>
         <div class="hero-search">
-          <input type="search" id="heroSearch" placeholder="Search by name or ID..." />
+          <input type="search" id="heroSearch" placeholder="Search by name or ID..." aria-label="Search sprites by name or ID" />
           <button type="button" id="heroSearchBtn">Search</button>
         </div>
         <div class="stats">
@@ -897,29 +893,25 @@ button { cursor: pointer; }
         </div>
       </section>
 
-      <section class="dash">
-        <div><span>SPRITES</span><b id="dashTotal">0</b></div>
-        <div><span>OWNED</span><b id="dashOwned">0</b></div>
-        <div><span>MASTERED</span><b id="dashMastered">0</b></div>
-        <div><span>PROGRESS</span><b id="dashProgress">0%</b></div>
-      </section>
-
       <section class="catalog">
         <aside class="filters" id="filters">
           <div class="filters-head">
             <h2>Filters</h2>
-            <button type="button" class="link-btn" id="clearFilters">Clear</button>
+            <div class="filters-actions">
+              <button type="button" class="link-btn" id="clearFilters">Clear</button>
+              <button type="button" class="filters-close" id="closeFilters" aria-label="Close filters">×</button>
+            </div>
           </div>
-          <label>Search</label>
+          <label for="filterSearch">Search</label>
           <input type="search" id="filterSearch" placeholder="Name or ID" />
-          <label>Variant</label>
-          <div class="chips" id="chipVariant"></div>
-          <label>Rarity</label>
-          <div class="chips" id="chipRarity"></div>
-          <label>Season</label>
+          <label id="lblVariant">Variant</label>
+          <div class="chips" id="chipVariant" role="group" aria-labelledby="lblVariant"></div>
+          <label id="lblRarity">Rarity</label>
+          <div class="chips" id="chipRarity" role="group" aria-labelledby="lblRarity"></div>
+          <label for="filterSeason">Season</label>
           <select id="filterSeason"><option value="all">All Seasons</option></select>
-          <label>Status</label>
-          <div class="chips" id="chipStatus">
+          <label id="lblStatus">Status</label>
+          <div class="chips" id="chipStatus" role="group" aria-labelledby="lblStatus">
             <button type="button" class="chip active" data-v="all">All</button>
             <button type="button" class="chip" data-v="owned">Owned</button>
             <button type="button" class="chip" data-v="not-owned">Not Owned</button>
@@ -927,7 +919,7 @@ button { cursor: pointer; }
             <button type="button" class="chip" data-v="not-mastered">Not Mastered</button>
             <button type="button" class="chip" data-v="unreleased">Unreleased</button>
           </div>
-          <label>Sort</label>
+          <label for="filterSort">Sort</label>
           <select id="filterSort">
             <option value="default">Default order</option>
             <option value="name-asc">Name A-Z</option>
@@ -964,7 +956,7 @@ button { cursor: pointer; }
           <button type="button" class="pri-btn" id="btnExportTxt">Save as text</button>
         </div>
       </div>
-      <div class="stats">
+      <div class="stats stats-5">
         <div class="stat"><b id="cTotal">0</b><span>Total</span></div>
         <div class="stat"><b id="cOwned">0</b><span>Owned</span></div>
         <div class="stat"><b id="cMastered">0</b><span>Mastered</span></div>
@@ -990,11 +982,11 @@ button { cursor: pointer; }
       <form id="tradeForm" class="trade-hero panel">
         <div class="trade-hero-grid">
           <div class="trade-field">
-            <label>Your name</label>
+            <label for="tradeName">Your name</label>
             <input type="text" id="tradeName" maxlength="32" required placeholder="Epic / Discord name" autocomplete="off" />
           </div>
           <div class="trade-field">
-            <label>Note</label>
+            <label for="tradeNote">Note</label>
             <input type="text" id="tradeNote" maxlength="120" placeholder="Platform, contact…" autocomplete="off" />
           </div>
         </div>
@@ -1003,7 +995,7 @@ button { cursor: pointer; }
           <div class="trade-pick" id="offerPreview">
             <span class="trade-pick-label">You offer</span>
             <div class="trade-pick-art" id="offerArt"><span>?</span></div>
-            <select id="tradeOffer" required><option value="">Select sprite…</option></select>
+            <select id="tradeOffer" required aria-label="Sprite you offer"><option value="">Select sprite…</option></select>
           </div>
           <div class="trade-vs-mid">
             <div class="trade-vs-icon">⇄</div>
@@ -1012,7 +1004,7 @@ button { cursor: pointer; }
           <div class="trade-pick" id="wantPreview">
             <span class="trade-pick-label">You want</span>
             <div class="trade-pick-art" id="wantArt"><span>?</span></div>
-            <select id="tradeWant" required><option value="">Select sprite…</option></select>
+            <select id="tradeWant" required aria-label="Sprite you want"><option value="">Select sprite…</option></select>
           </div>
         </div>
         <div class="trade-actions">
@@ -1049,7 +1041,7 @@ button { cursor: pointer; }
   <!-- MODAL -->
   <div class="overlay" id="modal" hidden>
     <div class="modal" id="modalBox">
-      <button type="button" class="close" id="modalClose">×</button>
+      <button type="button" class="close" id="modalClose" aria-label="Close">×</button>
       <div id="modalBody"></div>
     </div>
   </div>
@@ -1057,15 +1049,14 @@ button { cursor: pointer; }
   <!-- SETTINGS -->
   <div class="overlay" id="settings" hidden>
     <div class="settings panel">
-      <div class="settings-head"><h3>Settings</h3><button type="button" class="close" id="settingsClose">×</button></div>
-      <label>Theme</label>
-      <div class="chips" id="setTheme">
+      <div class="settings-head"><h3>Settings</h3><button type="button" class="close" id="settingsClose" aria-label="Close settings">×</button></div>
+      <label id="lblTheme">Theme</label>
+      <div class="chips" id="setTheme" role="group" aria-labelledby="lblTheme">
         <button type="button" class="chip active" data-v="dark">Dark</button>
-        <button type="button" class="chip" data-v="amoled">AMOLED</button>
         <button type="button" class="chip" data-v="light">Light</button>
       </div>
-      <label>Grid</label>
-      <div class="chips" id="setGrid">
+      <label id="lblGrid">Grid</label>
+      <div class="chips" id="setGrid" role="group" aria-labelledby="lblGrid">
         <button type="button" class="chip" data-v="compact">Compact</button>
         <button type="button" class="chip active" data-v="comfortable">Comfortable</button>
         <button type="button" class="chip" data-v="large">Large</button>
@@ -1644,6 +1635,7 @@ button { cursor: pointer; }
     try { trades = JSON.parse(localStorage.getItem(TRADE_KEY) || '[]'); if (!Array.isArray(trades)) trades = []; } catch (e) { trades = []; }
     try {
       var s = JSON.parse(localStorage.getItem(SET_KEY) || '{}');
+      if (s.theme === 'amoled') s.theme = 'dark';   // AMOLED theme was removed
       if (s.theme) document.body.setAttribute('data-theme', s.theme);
       if (s.grid) document.body.setAttribute('data-grid', s.grid);
     } catch (e) {}
@@ -1680,7 +1672,6 @@ button { cursor: pointer; }
     var pct = total ? Math.round(o / total * 100) : 0;
     function set(id, v) { var el = $(id); if (el) el.textContent = v; }
     set('statTotal', total); set('statOwned', o); set('statMastered', m); set('statProgress', pct + '%');
-    set('dashTotal', total); set('dashOwned', o); set('dashMastered', m); set('dashProgress', pct + '%');
     set('cTotal', total); set('cOwned', o); set('cMastered', m); set('cRemain', total - o); set('cProgress', pct + '%');
     set('ringPct', pct + '%');
     var ring = $('ringFill'); if (ring) ring.setAttribute('stroke-dasharray', pct + ',100');
@@ -2256,6 +2247,13 @@ button { cursor: pointer; }
     });
     $('btnMore').addEventListener('click', function () { page++; renderGrid(); });
     $('toggleFilters').addEventListener('click', function () { $('filters').classList.toggle('open'); });
+    $('closeFilters').addEventListener('click', function () { $('filters').classList.remove('open'); });
+    // On phones the filters are a slide-in panel: tapping outside it or pressing Esc closes it too
+    document.addEventListener('click', function (e) {
+      var f = $('filters');
+      if (f.classList.contains('open') && !f.contains(e.target) && e.target !== $('toggleFilters')) f.classList.remove('open');
+    }, true);   // capture phase: runs before chip handlers re-render the panel
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('filters').classList.remove('open'); });
 
     document.addEventListener('click', function (e) {
       var own = e.target.closest('[data-act="own"]');
@@ -2344,6 +2342,17 @@ button { cursor: pointer; }
     }
     setChip('setTheme', 'data-theme');
     setChip('setGrid', 'data-grid');
+    // Make the highlighted Settings chips match the saved theme / grid (they always showed the defaults before)
+    function syncSettingChips() {
+      [['setTheme', 'data-theme', 'dark'], ['setGrid', 'data-grid', 'comfortable']].forEach(function (g) {
+        var cur = document.body.getAttribute(g[1]) || g[2];
+        $(g[0]).querySelectorAll('.chip').forEach(function (c) {
+          c.classList.toggle('active', c.getAttribute('data-v') === cur);
+        });
+      });
+    }
+    syncSettingChips();
+    $('btnSettings').addEventListener('click', syncSettingChips);
     if ($('btnExportImg')) {
       $('btnExportImg').addEventListener('click', function () {
         var btn = $('btnExportImg');
