@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SpriteVaultFN — Fortnite Sprite Collection</title>
-  <meta name="description" content="SpriteVaultFN is a free Fortnite sprite collection tracker. Browse sprites, mark them owned and mastered, manage trades, and export your collection.">
   <meta name="theme-color" content="#06070d">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306070d'/%3E%3Cpath d='M16 4l9 12-9 12-9-12z' fill='%23a78bfa'/%3E%3C/svg%3E">
+  <meta name="description" content="SpriteVaultFN tracks the Fortnite sprites that are actually in the game. Mark them owned and mastered, post trades, and export your collection.">
+  <title>SpriteVaultFN</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%0A%20%20%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2306070d%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%203.5%2028.5%2016%2016%2028.5%203.5%2016Z%22%20fill%3D%22%23a78bfa%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M16%208.5%2023.5%2016%2016%2023.5%208.5%2016Z%22%20fill%3D%22%2322d3ee%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%222.4%22%20fill%3D%22%23f472b6%22%2F%3E%0A%3C%2Fsvg%3E%0A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -854,7 +854,7 @@ button { cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="sv-root">
+<div class="sv-root">
 <header class="nav">
     <div class="nav-inner">
       <a href="#" class="logo" id="logo">◆ SPRITEVAULTFN</a>
@@ -1042,7 +1042,7 @@ button { cursor: pointer; }
       <h2>About SpriteVaultFN</h2>
       <div class="panel">
         <p>Premium Fortnite sprite collection tracker. Mark Owned and Mastered, filter, trade notes, and track progress — all saved in your browser.</p>
-        <p class="muted">Roster current as of November 1, 2026 (Chapter 7 · Treasure Hunters mini-season, patch v43.00). 11 Sprites and 33 entries are live, in Base, Fortune and Cursed styles. Gold variants (due November 12) and further Sprites will be added as Epic releases them. Rarities are read from in-game spawn tiers; Epic has not published them for this season.</p>
+        <p class="muted">Roster current as of November 4, 2026 (Chapter 7 · Treasure Hunters mini-season, patch v43.00). 12 Sprites and 22 entries are live: Base and Fortune for the ten standard Sprites, plus Sweet Dreams and Transponder Snail (base only). Cursed styles, Gold styles, and Lil' Uzi Vert Jr. are not in the game yet. Rarities follow in-game labels where Epic shows them.</p>
         <p class="muted">Not affiliated with Epic Games. Sprite art © Epic Games, used for identification only.</p>
       </div>
     </div>
@@ -1075,8 +1075,8 @@ button { cursor: pointer; }
     </div>
   </div>
   </div>
-  <script>
 
+<script>
 // @ts-nocheck
 (function () {
   'use strict';
@@ -1107,20 +1107,21 @@ button { cursor: pointer; }
   var ALT_STEMS = {};
   var TIER_IDX = { basic: 0, fortune: 1, cursed: 2 };
 
-  // Chapter 7 · Treasure Hunters mini-season (v43.00, November 1, 2026): 11 Sprites, 33 entries (Base, Fortune, Cursed).
-  // Names, powers and variants per Epic's official Treasure Hunters update post.
+  // Chapter 7 · Treasure Hunters (v43.00). Live as of November 4, 2026: 12 Sprites, 22 entries.
+  // Base + Fortune for ten Sprites. Sweet Dreams and Transponder Snail are base only. Cursed and Gold are not in-game yet.
   var RAW = [
-    {id:"halfpeeld_basic",name:"Halfpeel'd",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/halfpeeld/base-ff633cc4.png"},
-    {id:"repete_basic",name:"Re-Pete",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/re-pete/base-22cffdb1.png"},
-    {id:"barryofish_basic",name:"Barry O'Fish",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/barry-ofish/base-ec4d8896.png"},
-    {id:"kelper_basic",name:"Kelper",variant:"Base",rarity:"Epic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/kelper/base-536d7b90.png"},
-    {id:"wayfinder_basic",name:"Wayfinder",variant:"Base",rarity:"Epic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/wayfinder/base-8db5f9e0.png"},
-    {id:"exmarks_basic",name:"Exmarks",variant:"Base",rarity:"Legendary",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/exmarks/base-0362064d.png"},
-    {id:"chester_basic",name:"Chester",variant:"Base",rarity:"Legendary",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/chester/base-113a15d0.png"},
-    {id:"squibbly_basic",name:"Lil' Squibbly",variant:"Base",rarity:"Legendary",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-squibbly/base-952c232b.png"},
-    {id:"flacko_basic",name:"Lil' Flacko",variant:"Base",rarity:"Legendary",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-flacko/base-1965a15c.png"},
-    {id:"plundarrgh_basic",name:"Plundarrgh",variant:"Base",rarity:"Mythic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/plundarrgh/base-13895f8b.png"},
-    {id:"sweetdreams_basic",name:"Sweet Dreams",variant:"Base",rarity:"Mythic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/sweet-dreams/base-01b0dc72.png"},
+    {id:"halfpeeld_basic",name:"Halfpeel'd",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/halfpeeld/base-3c021fe0.png"},
+    {id:"repete_basic",name:"Re-Pete",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/re-pete/base-1b072767.png"},
+    {id:"barryofish_basic",name:"Barry O'Fish",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/barry-ofish/base-d728555d.png"},
+    {id:"kelper_basic",name:"Kelper",variant:"Base",rarity:"Epic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/kelper/base-6693d21b.png"},
+    {id:"wayfinder_basic",name:"Wayfinder",variant:"Base",rarity:"Rare",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/wayfinder/base-61eed672.png"},
+    {id:"exmarks_basic",name:"Exmarks",variant:"Base",rarity:"Epic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/exmarks/base-dbcdc15a.png"},
+    {id:"chester_basic",name:"Chester",variant:"Base",rarity:"Epic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/chester/base-68edb70d.png"},
+    {id:"squibbly_basic",name:"Lil' Squibbly",variant:"Base",rarity:"Epic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-squibbly/base-86307697.png"},
+    {id:"flacko_basic",name:"Lil' Flacko",variant:"Base",rarity:"Legendary",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-flacko/base-ae2460ed.png"},
+    {id:"plundarrgh_basic",name:"Plundarrgh",variant:"Base",rarity:"Mythic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/plundarrgh/base-5f0ab2fa.png"},
+    {id:"sweetdreams_basic",name:"Sweet Dreams",variant:"Base",rarity:"Mythic",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/sweet-dreams/base-3e090fae.png"},
+    {id:"transponder_basic",name:"Transponder Snail",variant:"Base",rarity:"Legendary",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/feed-jet/base-2b4bc470.png"},
     {id:"halfpeeld_fortune",name:"Fortune Halfpeel'd",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/halfpeeld/fortune-0611e99f.png"},
     {id:"repete_fortune",name:"Fortune Re-Pete",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/re-pete/fortune-dd7d7016.png"},
     {id:"barryofish_fortune",name:"Fortune Barry O'Fish",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/barry-ofish/fortune-f0614de6.png"},
@@ -1130,19 +1131,7 @@ button { cursor: pointer; }
     {id:"chester_fortune",name:"Fortune Chester",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/chester/fortune-8d147787.png"},
     {id:"squibbly_fortune",name:"Fortune Lil' Squibbly",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-squibbly/fortune-d2643f95.png"},
     {id:"flacko_fortune",name:"Fortune Lil' Flacko",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-flacko/fortune-6297032c.png"},
-    {id:"plundarrgh_fortune",name:"Fortune Plundarrgh",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/plundarrgh/fortune-6530c60f.png"},
-    {id:"sweetdreams_fortune",name:"Fortune Sweet Dreams",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/sweet-dreams/base-01b0dc72.png"},
-    {id:"halfpeeld_cursed",name:"Cursed Halfpeel'd",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/halfpeeld/cursed-d769aa3e.png"},
-    {id:"repete_cursed",name:"Cursed Re-Pete",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/re-pete/cursed-8c7b34e7.png"},
-    {id:"barryofish_cursed",name:"Cursed Barry O'Fish",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/barry-ofish/cursed-3346f5f3.png"},
-    {id:"kelper_cursed",name:"Cursed Kelper",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/kelper/cursed-3af5d54b.png"},
-    {id:"wayfinder_cursed",name:"Cursed Wayfinder",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/wayfinder/cursed-d3c5419c.png"},
-    {id:"exmarks_cursed",name:"Cursed Exmarks",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/exmarks/cursed-c880deab.png"},
-    {id:"chester_cursed",name:"Cursed Chester",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/chester/cursed-21809028.png"},
-    {id:"squibbly_cursed",name:"Cursed Lil' Squibbly",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-squibbly/cursed-347209bd.png"},
-    {id:"flacko_cursed",name:"Cursed Lil' Flacko",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/lil-flacko/cursed-fde12b18.png"},
-    {id:"plundarrgh_cursed",name:"Cursed Plundarrgh",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/plundarrgh/cursed-8c18b0fd.png"},
-    {id:"sweetdreams_cursed",name:"Cursed Sweet Dreams",variant:"Cursed",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/sweet-dreams/base-01b0dc72.png"}
+    {id:"plundarrgh_fortune",name:"Fortune Plundarrgh",variant:"Fortune",rarity:"Special",season:"Treasure Hunters",unreleased:false,img:"https://img.spritecatch.com/sprites/plundarrgh/fortune-6530c60f.png"}
   ];
 
 
@@ -1157,7 +1146,8 @@ button { cursor: pointer; }
     kelper: { text: "Restores health over time while in water. Bigger heals with each level.", levels: [], label: "", where: "Tear down a Wanted Poster to get a Sprite Treasure Map, follow it, and dig up the buried Sprite Chest." },
     squibbly: { text: "Jump into fishing holes to catch fish and score bonus loot.", levels: [], label: "", where: "Tear down a Wanted Poster to get a Sprite Treasure Map, follow it, and dig up the buried Sprite Chest." },
     flacko: { text: "Creates a small shockwave on landing, knocking back opponents.", levels: [], label: "", where: "Dropped by A$AP Rocky, the Captain's Day Boss aboard The $.$. Rocky, alongside his Shock Rocket. Tear down a Wanted Poster to get a Sprite Treasure Map, follow it, and dig up the buried Sprite Chest." },
-    sweetdreams: { text: "Dream Sprite's distant cousin. Grants a random item with each level-up, bursting with Mythic loot at max level.", levels: [], label: "", where: "Tear down a Wanted Poster to get a Sprite Treasure Map, follow it, and dig up the buried Sprite Chest." }
+    sweetdreams: { text: "Dream Sprite's distant cousin. Grants a random item with each level-up, bursting with Mythic loot at max level.", levels: [], label: "", where: "Tear down a Wanted Poster to get a Sprite Treasure Map, follow it, and dig up the buried Sprite Chest." },
+    transponder: { text: "Grants extra resources on pickup. Teammates who also have this Sprite equipped receive some too. The bonus grows with each level.", levels: [], label: "", where: "Sprite Chests, Wanted Posters, Treasure Maps and Treasure Chests. It does not drop in bot lobbies." }
   };
 
 
@@ -2306,7 +2296,6 @@ button { cursor: pointer; }
 // Start the SpriteVaultFN app when the page is opened.
 if (typeof window !== 'undefined' && typeof window.svBoot === 'function') window.svBoot();
 
-
-  </script>
+</script>
 </body>
 </html>
